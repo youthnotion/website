@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 const About = () => {
@@ -25,12 +26,12 @@ const About = () => {
                   development.
                 </p>
 
-                <a
+                <Link
                   href="/#"
                   className="inline-flex items-center justify-center rounded-md bg-youth px-7 py-3 text-center text-base font-medium text-white duration-300 hover:bg-youth/90"
                 >
                   Know More
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -7,11 +7,16 @@ export const metadata: Metadata = {
   title: "Reset Password | Play SaaS Starter Kit and Boilerplate for Next.js",
 };
 
-const ResetPasswordPage = ({ params }: { params: { token: string } }) => {
+const ResetPasswordPage = async ({
+  params,
+}: {
+  params: Promise<{ token: string }>;
+}) => {
+  const { token } = await params;
   return (
     <>
       <Breadcrumb pageName="Reset Password" />
-      <ResetPassword token={params.token} />
+      <ResetPassword token={token} />
     </>
   );
 };

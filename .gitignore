@@ -12,6 +12,9 @@
 # next.js
 /.next/
 /out/
+/.open-next/
+/.wrangler/
+/cloudflare-env.d.ts
 
 # production
 /build
@@ -37,5 +40,6 @@ next-env.d.ts
 
 
 .env
+.dev.vars
 
 .vercel
