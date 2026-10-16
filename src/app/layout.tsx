@@ -1,6 +1,5 @@
 "use client";
 
-import { Kdam_Thmor_Pro } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -11,8 +10,6 @@ import "../styles/prism-vsc-dark-plus.css";
 import ToasterContext from "./api/contex/ToasetContex";
 import { useEffect, useState } from "react";
 import PreLoader from "@/components/Common/PreLoader";
-
-const kdam = Kdam_Thmor_Pro({ weight: "400", subsets: ["latin"], variable: "--font-kdam" });
 
 export default function RootLayout({
   children,
@@ -26,7 +23,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html suppressHydrationWarning={true} className={`${kdam.variable} !scroll-smooth`} lang="en">
+    <html suppressHydrationWarning={true} className="!scroll-smooth" lang="en" style={{ "--font-kdam": "Arial, sans-serif" } as React.CSSProperties}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
