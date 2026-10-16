@@ -1,21 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "main": ".open-next/worker.js",
   "name": "youthnotion",
-  "compatibility_date": "2026-10-12",
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  "build": {
-    "command": "npm run build:cloudflare"
-  },
+  "main": "./dist/_worker.js/index.js",
+  "compatibility_date": "2026-10-16",
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
   },
-  "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "youthnotion"
-    }
-  ],
   "observability": { "enabled": true }
 }

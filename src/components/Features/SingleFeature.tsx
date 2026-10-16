@@ -1,5 +1,5 @@
-import { Feature } from "@/types/feature";
-import Link from "next/link";
+import type { Feature } from "@/types/feature";
+import Link from "@/compat/Link";
 
 const SingleFeature = ({ feature }: { feature: Feature }) => {
   const { icon, title, paragraph, btn, btnLink } = feature;

@@ -1,0 +1,107 @@
+---
+const items = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/#current-projects" },
+];
+const isHome = Astro.url.pathname === "/";
+const startingLogo = isHome ? "/images/logo/YN-3.svg" : "/images/logo/logo.svg";
+const navTextClass = "text-dark hover:text-youth";
+---
+
+<header id="siteHeader" class:list={["ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent", { "home-header": isHome }]}>
+  <div class="container">
+    <div class="relative -mx-4 flex items-center justify-between">
+      <a href="/" class="navbar-logo block w-60 max-w-full px-4 py-5" aria-label="Youth Notion home">
+        <img id="siteLogo" src={startingLogo} data-home={isHome} alt="Youth Notion" width="210" height="58" class="header-logo w-full" />
+      </a>
+      <nav id="navbarCollapse" class="navbar invisible absolute right-0 top-[120%] z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white px-6 py-4 opacity-0 duration-300 dark:border-body-color/20 dark:bg-dark-2 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100" aria-label="Main navigation">
+        <ul class="block lg:ml-8 lg:flex lg:gap-x-8 xl:ml-14 xl:gap-x-12">
+          {items.map((item) => <li class="group relative"><a class={`ud-menu-scroll flex py-2 text-base ${navTextClass} dark:text-white lg:inline-flex lg:px-0 lg:py-6`} href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="absolute right-4 top-1/2 z-40 flex -translate-y-1/2 items-center gap-3 lg:static lg:translate-y-0 lg:pr-4">
+        <button id="themeToggler" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false" class="theme-toggle flex h-10 w-10 items-center justify-center rounded-full text-dark transition-colors hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-youth dark:text-white dark:hover:bg-white/10">
+          <svg aria-hidden="true" viewBox="0 0 23 23" class="h-6 w-6 fill-current dark:hidden">
+            <path d="M16.611 15.855a7.7 7.7 0 0 0 2.161-2.693 7.36 7.36 0 0 1-6.093-2.691 7.36 7.36 0 0 1-.709-7.775 7.37 7.37 0 0 0-3.223 1.38 7.34 7.34 0 0 0-1.452 10.326 7.34 7.34 0 0 0 9.316 1.453Z" />
+          </svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="hidden h-6 w-6 fill-current dark:block">
+            <path d="M12 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm8 3h1a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2ZM3 11h1a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2Zm14.95-5.364.707-.707a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 1 1-1.414-1.414ZM4.636 17.95l.707-.707a1 1 0 1 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414Zm13.314.707-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1-1.414 1.414ZM4.636 6.343A1 1 0 0 1 6.05 4.93l.707.707A1 1 0 0 1 5.343 7.05l-.707-.707ZM11 20v-1a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0Z" />
+          </svg>
+        </button>
+        <button id="navbarToggler" type="button" aria-label="Open navigation" aria-expanded="false" class="rounded-lg px-3 py-2 ring-youth focus:ring-2 lg:hidden">
+          <span class="my-1.5 block h-0.5 w-[30px] bg-white"></span>
+          <span class="my-1.5 block h-0.5 w-[30px] bg-white"></span>
+          <span class="my-1.5 block h-0.5 w-[30px] bg-white"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("#siteHeader");
+  const toggler = document.querySelector<HTMLButtonElement>("#navbarToggler");
+  const themeToggler = document.querySelector<HTMLButtonElement>("#themeToggler");
+  const navigation = document.querySelector<HTMLElement>("#navbarCollapse");
+
+  const storedTheme = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const applyTheme = (dark: boolean) => {
+    document.documentElement.classList.toggle("dark", dark);
+    themeToggler?.setAttribute("aria-pressed", String(dark));
+    themeToggler?.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} mode`);
+    themeToggler?.setAttribute("title", `Switch to ${dark ? "light" : "dark"} mode`);
+  };
+  applyTheme(storedTheme ? storedTheme === "dark" : prefersDark);
+  themeToggler?.addEventListener("click", () => {
+    const dark = !document.documentElement.classList.contains("dark");
+    localStorage.setItem("theme", dark ? "dark" : "light");
+    applyTheme(dark);
+  });
+
+  const updateHeader = () => header?.classList.toggle("sticky-menu", window.scrollY >= 80);
+  const logo = document.querySelector<HTMLImageElement>("#siteLogo");
+  const updateLogo = () => {
+    if (!logo || logo.dataset.home !== "true") return;
+    logo.src = window.scrollY >= 80 ? "/images/logo/logo.svg" : "/images/logo/YN-3.svg";
+  };
+  updateHeader();
+  updateLogo();
+  window.addEventListener("scroll", () => { updateHeader(); updateLogo(); }, { passive: true });
+
+  toggler?.addEventListener("click", () => {
+    const isOpen = toggler.getAttribute("aria-expanded") === "true";
+    toggler.setAttribute("aria-expanded", String(!isOpen));
+    navigation?.classList.toggle("invisible", isOpen);
+    navigation?.classList.toggle("opacity-0", isOpen);
+    navigation?.classList.toggle("top-[120%]", isOpen);
+    navigation?.classList.toggle("visible", !isOpen);
+    navigation?.classList.toggle("top-full", !isOpen);
+    navigation?.classList.toggle("opacity-100", !isOpen);
+  });
+
+  navigation?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+    toggler?.setAttribute("aria-expanded", "false");
+    navigation.classList.add("invisible", "opacity-0", "top-[120%]");
+    navigation.classList.remove("visible", "top-full", "opacity-100");
+  }));
+</script>
+
+<style>
+  @media (min-width: 960px) {
+    .home-header:not(.sticky-menu) #navbarCollapse li > a {
+      color: white;
+    }
+
+    .home-header:not(.sticky-menu) .theme-toggle {
+      color: white;
+    }
+  }
+
+  @media (max-width: 959px) {
+    .home-header:not(.sticky-menu) #navbarCollapse li > a {
+      color: #1f2937;
+    }
+  }
+</style>
