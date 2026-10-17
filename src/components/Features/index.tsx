@@ -4,15 +4,17 @@ import featuresData from "./featuresData";
 
 const Features = () => {
   return (
-    <section id="features" className="pb-8 pt-20 dark:bg-dark lg:pb-[70px] lg:pt-[120px]">
+    <section id="features" className="objectives-section pb-10 pt-20 lg:pb-[100px] lg:pt-[110px]">
       <div className="container">
         <SectionTitle
           subtitle="Objectives"
-          title="Main Goals of Youth Notion"
-          paragraph="The purpose of Youth Notion is to empower young people to become self-reliant, responsible citizens and active contributors to the nation's development."
+          title="A clear path from potential to impact."
+          paragraph="We turn youth potential into lasting progress through four connected priorities: opportunity, agency, capability, and community."
+          width="690px"
+          center
         />
 
-        <div className="-mx-4 mt-12 flex flex-wrap lg:mt-20">
+        <div className="objectives-grid mt-12 lg:mt-16">
           {featuresData.map((feature, i) => (
             <SingleFeature key={i} feature={feature} />
           ))}
