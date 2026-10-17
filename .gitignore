@@ -5,6 +5,8 @@
 /.astro/
 /dist/
 /.wrangler/
+/.netlify/
+/.vercel/
 /cloudflare-env.d.ts
 
 # local files

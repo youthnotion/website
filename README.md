@@ -30,6 +30,15 @@ The Astro Cloudflare adapter writes the server entry point to `dist/_worker.js/i
 
 For a local one-step build and deploy, use `npm run deploy`.
 
+## Netlify and Vercel
+
+The Astro config selects the matching server adapter from the host's build environment (`NETLIFY` or `VERCEL`). Cloudflare remains the default for local development and Cloudflare Workers Builds.
+
+- **Netlify:** use `npm run build` as the build command and `dist` as the publish directory. The Netlify build environment selects `@astrojs/netlify` and deploys SSR routes as Netlify Functions.
+- **Vercel:** import the repository and let Vercel detect Astro. The Vercel build environment selects `@astrojs/vercel` and deploys SSR routes to Vercel Functions.
+
+Each provider builds its own adapter output from the same source; do not upload a Cloudflare Worker build artifact to Netlify or Vercel.
+
 ## Site structure
 
 - `src/pages/` contains the home, about, health, and not-found routes.
