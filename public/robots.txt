@@ -1,0 +1,39 @@
+User-agent: *
+Allow: /
+
+# Search and user-requested retrieval bots. Training crawlers are separate.
+User-agent: OAI-SearchBot
+Allow: /
+
+# Claude search indexing and user-triggered page retrieval.
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Anthropic documents ClaudeBot as a model-training crawler.
+User-agent: ClaudeBot
+Disallow: /
+
+# DuckDuckGo search indexing and AI-assisted answers.
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+# DuckDuckGo also sources many standard web results from Bing.
+User-agent: Bingbot
+Allow: /
+
+# DeepSeek has not published official crawler-token documentation; this token
+# is reported by third-party crawler directories and may not be used by them.
+User-agent: DeepSeekBot
+Allow: /
+
+# OpenAI model-training crawler; ChatGPT search is allowed above.
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://youthnotion.orgs.bd/sitemap.xml

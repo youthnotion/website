@@ -1,0 +1,25 @@
+# Youth Notion
+
+> Youth Notion is a youth-led organization based in Maijdee, Noakhali, Bangladesh. It works to empower young people through education, civic awareness, technology, and community action.
+
+## About
+
+Youth Notion aims to help young people become self-reliant, responsible citizens and active contributors to national development. Its work includes education and career guidance, technical and vocational skills, civic responsibility, and research into challenges affecting young people.
+
+## Projects
+
+- Project Terra: https://youthnotion.github.io/TERRA/
+- Sunagorik: https://youthnotion.github.io/sunagorik
+- Tech4Youth: https://youthnotion.orgs.bd/#current-projects
+
+## Main pages
+
+- Home: https://youthnotion.orgs.bd/
+- About Youth Notion: https://youthnotion.orgs.bd/about
+- Frequently asked questions: https://youthnotion.orgs.bd/#faq
+- Current projects: https://youthnotion.orgs.bd/#current-projects
+
+## Official profiles
+
+- Facebook: https://www.facebook.com/youthnotion
+- LinkedIn: https://www.linkedin.com/company/youthnotion/

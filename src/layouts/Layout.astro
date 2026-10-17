@@ -7,12 +7,44 @@ import ScrollToTop from "../components/ScrollToTop";
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
-  title = "Youth Notion",
-  description = "We believe in youth. Youth Notion promotes civic awareness and youth empowerment through education and technology.",
+  title = "Youth Notion | Youth Empowerment in Bangladesh",
+  description = "Youth Notion is a youth-led organization in Maijdee, Noakhali, Bangladesh, empowering young people through education, civic awareness, technology, and community action.",
+  noindex = false,
 } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title.includes("Youth Notion") ? title : `${title} | Youth Notion`;
+const socialImage = new URL("/images/logo/logo.svg", Astro.site);
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Youth Notion",
+  alternateName: "YouthNotion",
+  url: Astro.site,
+  logo: socialImage,
+  description,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Maijdee",
+    addressRegion: "Noakhali",
+    addressCountry: "BD",
+  },
+  areaServed: { "@type": "Country", name: "Bangladesh" },
+  sameAs: [
+    "https://www.facebook.com/youthnotion",
+    "https://www.linkedin.com/company/youthnotion/",
+  ],
+};
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Youth Notion",
+  alternateName: "YouthNotion",
+  url: Astro.site,
+};
 ---
 
 <!doctype html>
@@ -21,9 +53,23 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#246476" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <title>{title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Youth Notion" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+    {Astro.url.pathname === "/" && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
+    <title>{fullTitle}</title>
   </head>
   <body>
     <Header />

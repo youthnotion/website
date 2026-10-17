@@ -14,6 +14,7 @@ const adapter = process.env.NETLIFY
     : cloudflare({ imageService: "compile" });
 
 export default defineConfig({
+  site: "https://youthnotion.orgs.bd",
   output: "server",
   session: { driver: "memory" },
   adapter,
