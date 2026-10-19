@@ -10,7 +10,11 @@ import vercel from "@astrojs/vercel";
 const adapter = process.env.NETLIFY
   ? netlify()
   : process.env.VERCEL
-    ? vercel()
+    ? vercel({
+        webAnalytics: {
+          enabled: true,
+        },
+      })
     : cloudflare({ imageService: "compile" });
 
 export default defineConfig({
