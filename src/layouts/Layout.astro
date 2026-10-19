@@ -3,6 +3,8 @@ import "../styles/index.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
   title?: string;
@@ -70,6 +72,8 @@ const website = {
     <script type="application/ld+json" set:html={JSON.stringify(organization)} />
     {Astro.url.pathname === "/" && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
     <title>{fullTitle}</title>
+    <Analytics />
+    <SpeedInsights />
   </head>
   <body>
     <Header />
