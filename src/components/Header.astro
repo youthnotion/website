@@ -5,7 +5,7 @@ const items = [
   { label: "Projects", href: "/#current-projects" },
 ];
 const isHome = Astro.url.pathname === "/";
-const startingLogo = isHome ? "/images/logo/YN-3.svg" : "/images/logo/logo.svg";
+const startingLogo = "/images/logo/YN-3.svg";
 const navTextClass = "text-dark hover:text-youth";
 ---
 
@@ -13,7 +13,7 @@ const navTextClass = "text-dark hover:text-youth";
   <div class="container">
     <div class="relative -mx-4 flex items-center justify-between">
       <a href="/" class="navbar-logo block w-60 max-w-full px-4 py-5" aria-label="Youth Notion home">
-        <img id="siteLogo" src={startingLogo} data-home={isHome} alt="Youth Notion" width="210" height="58" class="header-logo w-full" />
+        <img src={startingLogo} alt="Youth Notion" width="210" height="58" class="header-logo w-full" />
       </a>
       <nav id="navbarCollapse" class="navbar invisible absolute right-0 top-[120%] z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white px-6 py-4 opacity-0 duration-300 dark:border-body-color/20 dark:bg-dark-2 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100" aria-label="Main navigation">
         <ul class="block lg:ml-8 lg:flex lg:gap-x-8 xl:ml-14 xl:gap-x-12">
@@ -61,14 +61,8 @@ const navTextClass = "text-dark hover:text-youth";
   });
 
   const updateHeader = () => header?.classList.toggle("sticky-menu", window.scrollY >= 80);
-  const logo = document.querySelector<HTMLImageElement>("#siteLogo");
-  const updateLogo = () => {
-    if (!logo || logo.dataset.home !== "true") return;
-    logo.src = window.scrollY >= 80 ? "/images/logo/logo.svg" : "/images/logo/YN-3.svg";
-  };
   updateHeader();
-  updateLogo();
-  window.addEventListener("scroll", () => { updateHeader(); updateLogo(); }, { passive: true });
+  window.addEventListener("scroll", updateHeader, { passive: true });
 
   toggler?.addEventListener("click", () => {
     const isOpen = toggler.getAttribute("aria-expanded") === "true";

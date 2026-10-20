@@ -5,7 +5,7 @@ const Footer = () => (
   <footer className="relative z-10 overflow-hidden bg-[#090E34] pt-20 lg:pt-[100px]">
     <div className="container">
       <div className="-mx-4 flex flex-wrap pb-8">
-        <div className="w-full px-4 sm:w-1/2 lg:w-5/12">
+        <div className="w-full px-4 sm:w-1/2 lg:w-4/12">
           <div className="mb-10 w-full">
             <Link href="/" className="mb-6 inline-block max-w-[180px]">
               <Image src="/images/logo/YN-3.svg" alt="Youth Notion" width={210} height={58} />
@@ -20,19 +20,28 @@ const Footer = () => (
           </div>
         </div>
 
-        <div className="w-full px-4 sm:w-1/2 lg:w-3/12">
+        <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
           <FooterColumn title="Explore" links={[
             ["Home", "/"], ["About", "/about"], ["Our team", "/#team"],
             ["Current projects", "/#current-projects"], ["Frequently asked questions", "/#faq"],
           ]} />
         </div>
 
-        <div className="w-full px-4 sm:w-1/2 lg:w-4/12">
+        <div className="w-full px-4 sm:w-1/2 lg:w-3/12">
           <FooterColumn title="Our projects" links={[
             ["Project Terra", "https://youthnotion.github.io/TERRA/"],
             ["Sunagorik", "https://youthnotion.github.io/sunagorik"],
             ["Tech4Youth", "/#current-projects"],
           ]} />
+        </div>
+
+        <div className="w-full px-4 sm:w-1/2 lg:w-3/12">
+          <div className="mb-10 w-full">
+            <h2 className="mb-7 text-lg font-semibold text-white">Office</h2>
+            <address className="max-w-[260px] not-italic text-base leading-relaxed text-gray-7">
+              Mamtaz Mahal, Road-08, House-01, 4th Floor, Housing Estate, Maizdee Court, Noakhali
+            </address>
+          </div>
         </div>
 
       </div>
