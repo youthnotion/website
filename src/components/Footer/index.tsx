@@ -30,7 +30,7 @@ const Footer = () => (
         <div className="w-full px-4 sm:w-1/2 lg:w-3/12">
           <FooterColumn title="Our projects" links={[
             ["Project Terra", "https://youthnotion.github.io/TERRA/"],
-            ["Sunagorik", "https://youthnotion.github.io/sunagorik"],
+            ["Project Sunagorik", "https://youthnotion.github.io/sunagorik"],
             ["Tech4Youth", "/#current-projects"],
           ]} />
         </div>

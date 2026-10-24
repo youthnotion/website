@@ -218,9 +218,29 @@ body {
 .team-org-logo img { display:block; width:20px; height:20px; object-fit:contain; }
 .team-project-logo { display:flex; }
 .team-project-logo img { display:block; width:22px; height:22px; border-radius:5px; object-fit:cover; }
-.terra-project-mark { display:inline-flex; align-items:center; gap:1px; min-height:18px; padding:0 4px; border-left:1px solid rgba(0,190,210,.38); color:#00a9bb; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:8px; font-weight:800; letter-spacing:.02em; line-height:1; text-shadow:0 0 5px rgba(0,201,221,.48); animation:terra-logo-pulse 2.4s ease-in-out infinite; }
-.terra-project-mark span { color:#517c80; }
-@keyframes terra-logo-pulse { 0%,100% { opacity:.78; text-shadow:0 0 4px rgba(0,201,221,.35); } 50% { opacity:1; text-shadow:0 0 7px rgba(0,201,221,.8),0 0 13px rgba(0,201,221,.35); } }
+.projects-section { isolation:isolate; }
+.projects-section::before { position:absolute; inset:0; background:radial-gradient(ellipse at 12% 18%,rgba(56,211,198,.23),transparent 34%),radial-gradient(ellipse at 84% 24%,rgba(255,151,89,.21),transparent 33%),radial-gradient(ellipse at 52% 100%,rgba(169,128,255,.18),transparent 44%); content:""; pointer-events:none; }
+.projects-three-background { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.projects-three-background canvas { display:block; width:100%; height:100%; opacity:.78; }
+.projects-section .container { z-index:1; }
+.projects-section a,.projects-section button { position:relative; }
+.sunagorik-project-heading { display:flex; align-items:center; gap:10px; }
+.sunagorik-project-heading img { width:42px; height:42px; flex:none; border-radius:9px; transition:transform .25s ease,filter .25s ease; }
+.sunagorik-project-heading:hover img { transform:rotate(-4deg) scale(1.04); filter:drop-shadow(0 3px 5px rgba(116,28,28,.22)); }
+.terra-project-mark { display:inline-flex; align-items:center; gap:4px; min-height:22px; padding-left:7px; border-left:1px solid rgba(0,190,210,.38); color:#078b9a; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:8px; font-weight:800; letter-spacing:.06em; line-height:1; }
+.terra-project-heading { display:flex; align-items:center; gap:10px; }
+.terra-logo { display:block; flex:none; overflow:visible; }
+.terra-logo-badge { width:22px; height:22px; filter:drop-shadow(0 0 3px rgba(0,190,210,.35)); }
+.terra-logo-project { width:42px; height:42px; filter:drop-shadow(0 0 6px rgba(0,190,210,.32)); transition:filter .25s ease,transform .25s ease; }
+.terra-project-heading:hover .terra-logo-project { filter:drop-shadow(0 0 10px rgba(0,190,210,.6)); transform:rotate(-4deg) scale(1.04); }
+.terra-logo-shell { fill:rgba(0,190,210,.07); stroke:#08b6c5; stroke-width:1.5; stroke-linejoin:round; }
+.terra-logo-contours,.terra-logo-signal { fill:none; stroke:rgba(0,160,180,.62); stroke-width:1.25; stroke-linecap:round; }
+.terra-logo-terrain { fill:rgba(0,190,210,.18); stroke:#08b6c5; stroke-width:1.25; stroke-linejoin:round; }
+.terra-logo-wave { fill:none; stroke:#087d8c; stroke-width:1.6; stroke-linecap:round; stroke-dasharray:54; animation:terra-wave-flow 3.2s ease-in-out infinite; }
+.terra-logo-sensor-halo { fill:rgba(0,190,210,.15); stroke:#08b6c5; stroke-width:1; transform-box:fill-box; transform-origin:center; animation:terra-sensor-pulse 2.4s ease-out infinite; }
+.terra-logo-sensor { fill:#e6ffff; filter:drop-shadow(0 0 3px #08b6c5); }
+@keyframes terra-wave-flow { 0%,12% { stroke-dashoffset:54; } 55%,100% { stroke-dashoffset:0; } }
+@keyframes terra-sensor-pulse { 0%,100% { opacity:.45; transform:scale(.82); } 50% { opacity:1; transform:scale(1.18); } }
 .dark .team-section { background:#111b1e; }
 .dark .team-roster-heading h3 { color:#edf4ed; }
 .dark .team-roster-heading p,.dark .team-roster-heading > span { color:#9cb2a2; }
@@ -234,7 +254,7 @@ body {
 @media (max-width:1050px) { .team-roster-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media (max-width:760px) { .team-intro { min-height:360px; }.team-intro-content { padding-top:84px; }.team-network { right:-13%; width:74%; opacity:.68; }.team-count { right:0; bottom:60px; }.team-roster-wrap { padding-top:56px; }.team-roster-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }.team-card { min-height:104px; padding:11px 12px; }.team-portrait-wrap { width:72px; height:72px; flex-basis:72px; }.team-portrait { width:58px; height:58px; }.team-card-content h3 { font-size:13px; }.team-designation { font-size:9px; } }
 @media (max-width:480px) { .team-section { padding-bottom:70px; }.team-intro { min-height:388px; }.team-intro-content { width:calc(100% - 40px); padding:66px 0 110px; }.team-intro h2 { max-width:310px; font-size:48px; }.team-intro-copy { max-width:290px; font-size:13px; }.team-network { top:98px; right:-34%; width:100%; height:74%; opacity:.5; }.team-count { right:auto; left:0; bottom:38px; }.team-coordinate { right:18px; font-size:7px; }.team-coordinate-bottom { left:20px; }.team-roster-wrap { width:calc(100% - 32px); padding-top:44px; }.team-roster-heading { align-items:start; margin-bottom:20px; }.team-roster-heading > span { padding-top:4px; font-size:7px; }.team-roster-grid { grid-template-columns:1fr; gap:9px; }.team-card { min-height:96px; padding:10px 14px; border-radius:12px; }.team-portrait-wrap { width:68px; height:68px; flex-basis:68px; }.team-portrait { width:56px; height:56px; }.team-card-content h3 { font-size:14px; }.team-designation { font-size:10px; } }
-@media (prefers-reduced-motion:reduce) { .team-card,.team-portrait-orbit,.terra-project-mark { transition:none; animation:none; }.team-card:hover,.team-card:focus-within { transform:none; } }
+@media (prefers-reduced-motion:reduce) { .team-card,.team-portrait-orbit,.terra-logo-wave,.terra-logo-sensor-halo,.sunagorik-project-heading img { transition:none; animation:none; }.terra-project-heading:hover .terra-logo-project,.sunagorik-project-heading:hover img { transform:none; }.team-card:hover,.team-card:focus-within { transform:none; } }
 
 .sticky-menu .navbar-logo {
   @apply py-2;

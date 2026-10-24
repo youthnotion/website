@@ -1,5 +1,6 @@
 import type { TeamType } from "@/types/team";
 import Image from "@/compat/Image";
+import TerraLogo from "@/components/Common/TerraLogo";
 
 const SingleTeam = ({ team }: { team: TeamType }) => {
   const isDirector = team.designation.startsWith("Director");
@@ -36,8 +37,9 @@ const SingleTeam = ({ team }: { team: TeamType }) => {
             </span>
           )}
           {team.terra && (
-            <span className="terra-project-mark" title="Project Terra" aria-label="Project Terra">
-              <span>&lt;</span>TERRA<span>/&gt;</span>
+            <span className="terra-project-mark" title="Project TERRA" aria-label="Project TERRA">
+              <TerraLogo size="badge" />
+              <span>TERRA</span>
             </span>
           )}
         </div>
