@@ -37,7 +37,7 @@ const Hero = () => {
             </p>
             <div data-reveal className="hero-actions">
               <Link href="/#about" className="hero-primary">Discover our mission <span aria-hidden="true">↗</span></Link>
-              <Link href="#current-projects" className="hero-secondary">Explore our work <span aria-hidden="true">→</span></Link>
+              <Link href="/projects" className="hero-secondary">Explore our work <span aria-hidden="true">→</span></Link>
             </div>
             <div data-reveal className="hero-proof"><span className="proof-line" /> A generation of changemakers, connected.</div>
           </div>

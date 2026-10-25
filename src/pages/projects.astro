@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CurrentProjects from "../components/CurrentProjects";
+import PageHero from "../components/PageHero.astro";
+---
+
+<Layout title="Projects" description="Explore Youth Notion’s projects in environmental response, civic awareness, and youth technology.">
+  <main>
+    <PageHero
+      variant="projects"
+      eyebrow="IDEAS INTO ACTION"
+      title="Building practical change, together."
+      description="Explore initiatives using technology, civic engagement, and community action to expand what young people can do."
+      actionLabel="Explore projects"
+      actionHref="#current-projects"
+      secondaryLabel="Why Youth Notion"
+      secondaryHref="/about"
+    />
+    <CurrentProjects client:visible />
+  </main>
+</Layout>

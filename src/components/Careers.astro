@@ -1,0 +1,204 @@
+---
+---
+
+<div class="careers-page">
+    <section class="careers-hero" id="careers" aria-labelledby="careers-title">
+      <div class="careers-glow" aria-hidden="true"></div>
+      <div class="careers-copy">
+        <p class="careers-eyebrow"><span></span> CAREERS AT YOUTH NOTION</p>
+        <h1 id="careers-title">Bring your ideas.<br /><em>Build what matters.</em></h1>
+        <p class="careers-intro">We’re creating a place for curious, committed people to learn, contribute, and make a difference alongside young people in Bangladesh.</p>
+        <div class="careers-actions">
+          <a class="careers-button" href="#open-roles">Explore opportunities <span aria-hidden="true">↓</span></a>
+          <a class="careers-about-link" href="/about">Get to know us <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="careers-focus"><span>01</span><p>Internships<br /><small>Learn by doing</small></p><i></i><span>02</span><p>Associate roles<br /><small>Grow with the work</small></p></div>
+      </div>
+      <div class="careers-art" aria-hidden="true">
+        <div class="careers-art-grid"></div>
+        <div class="careers-art-orbit orbit-one"></div>
+        <div class="careers-art-orbit orbit-two"></div>
+        <div class="careers-art-core"><span>YN</span></div>
+        <canvas id="careers-canvas"></canvas>
+        <span class="art-caption">IDEAS IN MOTION <b>✳</b></span>
+      </div>
+      <a class="careers-scroll" href="#open-roles"><span></span> SCROLL TO EXPLORE</a>
+    </section>
+
+    <section class="careers-openings" id="open-roles" aria-labelledby="roles-title">
+      <div class="roles-heading">
+        <div><p class="careers-eyebrow"><span></span> FIND YOUR PLACE</p><h2 id="roles-title">Open opportunities</h2></div>
+        <p>We’ll share internship and associate openings here as roles are finalized.</p>
+      </div>
+      <div class="roles-empty">
+        <div class="roles-empty-icon" aria-hidden="true"><span>＋</span></div>
+        <div><p class="roles-status">THE NEXT CHAPTER STARTS HERE</p><h3>No openings posted just yet</h3><p>We’re shaping the opportunities we’ll offer. Check back soon for details on roles, responsibilities, and how to apply.</p></div>
+        <span class="roles-empty-mark" aria-hidden="true">YN<span>.</span></span>
+      </div>
+      <p class="careers-note">Only current, confirmed opportunities will appear on this page.</p>
+    </section>
+  </div>
+
+<style>
+  .careers-page { color: #17212b; background: #f7faf9; }
+  .careers-hero { min-height: 720px; position: relative; isolation: isolate; overflow: hidden; padding: 168px max(7vw, calc((100vw - 1180px) / 2)) 100px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 3rem; background: #f1f7f6; }
+  .careers-glow { position: absolute; width: 560px; height: 560px; border-radius: 50%; right: 4%; top: 8%; background: radial-gradient(circle,rgba(54,181,145,.14),rgba(72,198,180,.04) 48%,transparent 70%); z-index: -1; }
+  .careers-copy { position: relative; z-index: 2; max-width: 580px; }
+  .careers-eyebrow { display:flex; align-items:center; gap:10px; color:#398875; letter-spacing:.16em; font-size:11px; font-weight:700; margin:0 0 22px; }
+  .careers-eyebrow span { width:8px; height:8px; display:inline-block; border-radius:50%; background:#58b88f; box-shadow:0 0 0 5px rgba(88,184,143,.13); }
+  .careers-copy h1 { margin:0; font-size:clamp(3.2rem,6.3vw,5.6rem); letter-spacing:-.065em; line-height:.99; font-weight:750; color:#152530; }
+  .careers-copy h1 em { color:#398875; font-style:normal; }
+  .careers-intro { margin:27px 0 0; max-width:500px; color:#596971; font-size:17px; line-height:1.75; }
+  .careers-actions { display:flex; align-items:center; gap:25px; margin-top:32px; }
+  .careers-button { display:inline-flex; align-items:center; gap:22px; border-radius:6px; padding:14px 19px; background:#087b62; color:white; font-weight:650; box-shadow:0 9px 24px #087b622b; transition:transform .2s,background .2s; }
+  .careers-button:hover { transform:translateY(-2px); background:#066a55; }
+  .careers-about-link { color:#34464c; font-weight:600; }
+  .careers-about-link span { color:#398875; margin-left:5px; }
+  .careers-focus { display:flex; align-items:center; gap:14px; margin-top:52px; color:#398875; }
+  .careers-focus > span { align-self:flex-start; font-size:10px; font-weight:700; padding-top:3px; }
+  .careers-focus p { margin:0; color:#263840; font-size:13px; font-weight:650; line-height:1.35; }
+  .careers-focus small { color:#819096; font-size:11px; font-weight:400; }
+  .careers-focus i { height:32px; width:1px; background:#cedbd7; margin:0 10px; }
+  .careers-art { min-height:460px; position:relative; overflow:hidden; border-radius:50%; }
+  .careers-art-grid { position:absolute; inset:5%; border-radius:50%; opacity:.5; background-image:linear-gradient(rgba(72,131,120,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(72,131,120,.09) 1px,transparent 1px); background-size:34px 34px; mask-image:radial-gradient(circle,#000 20%,transparent 69%); }
+  .careers-art-orbit { position:absolute; left:50%; top:50%; border:1px solid rgba(52,151,126,.25); border-radius:50%; transform:translate(-50%,-50%); }
+  .orbit-one { width:350px;height:350px; }.orbit-two { width:250px;height:250px;border-style:dashed; }
+  .careers-art-core { position:absolute; left:50%;top:50%;transform:translate(-50%,-50%); width:125px;height:125px;border-radius:38% 62% 56% 44% / 48% 42% 58% 52%; display:grid;place-items:center;background:linear-gradient(145deg,#07846a,#69c991); color:white; box-shadow:0 25px 70px #16866a4d,inset 0 0 0 9px #ffffff20; animation:morph 9s ease-in-out infinite; }
+  .careers-art-core span { font-size:38px; font-weight:800; letter-spacing:-.08em; }
+  #careers-canvas { position:absolute; inset:0; width:100%;height:100%; }
+  .art-caption { position:absolute; bottom:20%;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:10px;letter-spacing:.2em;color:#65857c;font-weight:700; }
+  .art-caption b { color:#e6a94c;font-size:15px;margin-left:7px; }
+  .careers-scroll { position:absolute; bottom:28px;left:max(7vw, calc((100vw - 1180px) / 2)); display:flex;align-items:center;gap:11px;font-size:9px;letter-spacing:.18em;color:#819096;font-weight:700; }
+  .careers-scroll span { width:20px;height:30px;border:1px solid #9aaea8;border-radius:15px;position:relative; }
+  .careers-scroll span:after { content:"";position:absolute;top:6px;left:8px;width:2px;height:5px;background:#398875;border-radius:2px;animation:scroll-dot 1.5s infinite; }
+  .careers-openings { padding:110px max(7vw, calc((100vw - 1180px) / 2)) 120px; background:#fff; }
+  .roles-heading { display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:35px; }
+  .roles-heading .careers-eyebrow { margin-bottom:13px; }
+  .roles-heading h2 { margin:0;color:#172a31;font-size:clamp(2.2rem,4vw,3.1rem);letter-spacing:-.05em; }
+  .roles-heading > p { max-width:370px;margin:0 0 5px;color:#708087;line-height:1.65; }
+  .roles-empty { min-height:245px;position:relative;overflow:hidden;border:1px solid #e0eae6;border-radius:12px;background:linear-gradient(110deg,#f5faf8,#fbfdfc);padding:42px;display:flex;align-items:center;gap:27px;box-shadow:0 15px 45px #1e4d3b0a; }
+  .roles-empty-icon { flex:0 0 62px;width:62px;height:62px;border-radius:18px;background:#e3f2eb;color:#278269;display:grid;place-items:center;font-size:32px;font-weight:300; }
+  .roles-status { margin:0 0 9px;color:#458b78;font-size:10px;font-weight:700;letter-spacing:.14em; }
+  .roles-empty h3 { margin:0 0 9px;color:#26383d;font-size:22px;letter-spacing:-.025em; }
+  .roles-empty div > p:last-child { max-width:600px;margin:0;color:#6c7b7e;line-height:1.65; }
+  .roles-empty-mark { position:absolute;right:30px;bottom:-45px;color:#30856e0a;font-size:170px;font-weight:800;letter-spacing:-.1em;line-height:1; }
+  .roles-empty-mark span { color:#e1ac5350; }
+  .careers-note { margin:15px 0 0;color:#8b989a;font-size:12px; }
+  @keyframes morph { 0%,100%{border-radius:38% 62% 56% 44% / 48% 42% 58% 52%}50%{border-radius:58% 42% 39% 61% / 43% 61% 39% 57%} }
+  @keyframes scroll-dot { 0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(9px)} }
+  :global(.dark) .careers-page { color:#e7f0ed; background:#0c171a; }
+  :global(.dark) .careers-hero { background:#102126; }
+  :global(.dark) .careers-copy h1 { color:#edf5f2; }
+  :global(.dark) .careers-copy h1 em { color:#82d0a8; }
+  :global(.dark) .careers-intro { color:#b2c2c0; }
+  :global(.dark) .careers-about-link { color:#d9e6e2; }
+  :global(.dark) .careers-focus p { color:#e0ebe7; }
+  :global(.dark) .careers-focus small { color:#9fb2ae; }
+  :global(.dark) .careers-focus i { background:#35534c; }
+  :global(.dark) .careers-art-orbit { border-color:rgba(122,205,173,.3); }
+  :global(.dark) .careers-art-grid { background-image:linear-gradient(rgba(122,205,173,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(122,205,173,.1) 1px,transparent 1px); }
+  :global(.dark) .art-caption { color:#a6c4ba; }
+  :global(.dark) .careers-scroll { color:#a6b9b4; }
+  :global(.dark) .careers-scroll span { border-color:#708a82; }
+  :global(.dark) .careers-openings { background:#0b1418; }
+  :global(.dark) .roles-heading h2 { color:#edf5f2; }
+  :global(.dark) .roles-heading > p { color:#aabbb7; }
+  :global(.dark) .roles-empty { border-color:#29463e; background:linear-gradient(110deg,#142923,#111f1d); box-shadow:0 15px 45px #00000020; }
+  :global(.dark) .roles-empty-icon { background:#204337; color:#a1e1bc; }
+  :global(.dark) .roles-status { color:#8ed2ae; }
+  :global(.dark) .roles-empty h3 { color:#edf5f2; }
+  :global(.dark) .roles-empty div > p:last-child { color:#b1c1bd; }
+  :global(.dark) .roles-empty-mark { color:#b9e5d00d; }
+  :global(.dark) .roles-empty-mark span { color:#e1ac5325; }
+  :global(.dark) .careers-note { color:#9aaba7; }
+  @media(max-width:800px) { .careers-hero { min-height:auto;padding:145px 7vw 85px;grid-template-columns:1fr;gap:0; }.careers-art{min-height:370px;max-width:500px;width:100%;margin:15px auto 0}.careers-scroll{left:7vw}.careers-openings{padding:75px 7vw 85px}.roles-heading{display:block}.roles-heading>p{margin-top:17px} }
+  @media(max-width:520px) { .careers-copy h1{font-size:3.35rem}.careers-intro{font-size:15px}.careers-actions{gap:17px;flex-wrap:wrap}.careers-focus{margin-top:38px}.careers-art{min-height:310px}.orbit-one{width:290px;height:290px}.orbit-two{width:210px;height:210px}.careers-art-core{width:100px;height:100px}.careers-art-core span{font-size:32px}.roles-empty{padding:27px 23px;display:block}.roles-empty-icon{margin-bottom:22px}.roles-empty-mark{font-size:130px;right:5px} }
+  @media(prefers-reduced-motion:reduce) { .careers-art-core,.careers-scroll span:after{animation:none}.careers-button{transition:none} }
+</style>
+
+<script>
+  import * as THREE from "three";
+
+  const canvas = document.querySelector<HTMLCanvasElement>("#careers-canvas");
+  const host = canvas?.parentElement;
+  if (canvas && host && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.z = 8;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "low-power" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    const group = new THREE.Group();
+    scene.add(group);
+    const nodes = Array.from({ length: 30 }, (_, i) => {
+      const angle = i / 30 * Math.PI * 2;
+      const radius = 2.05 + Math.sin(i * 2.4) * 0.25;
+      return new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius, Math.sin(i * 1.7) * 0.35);
+    });
+    const points = new THREE.BufferGeometry().setFromPoints(nodes);
+    const dots = new THREE.Points(points, new THREE.PointsMaterial({ color: 0x087b62, size: 0.055, transparent: true, opacity: 0.8 }));
+    group.add(dots);
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x53a891, transparent: true, opacity: 0.25 });
+    nodes.forEach((point, i) => {
+      for (const offset of [1, 4]) {
+        const line = new THREE.BufferGeometry().setFromPoints([point, nodes[(i + offset) % nodes.length]]);
+        group.add(new THREE.Line(line, lineMaterial));
+      }
+    });
+    const starGeometry = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(120 * 3);
+    for (let i = 0; i < 120; i++) {
+      starPositions[i * 3] = (Math.random() - 0.5) * 8;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 2;
+    }
+    starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+    const stars = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xe6a94c, size: 0.025, transparent: true, opacity: 0.65 }));
+    scene.add(stars);
+    let frame = 0;
+    let visible = true;
+    let pointerX = 0;
+    const resize = () => {
+      const { width, height } = host.getBoundingClientRect();
+      if (!width || !height) return;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+    const observer = new ResizeObserver(resize);
+    observer.observe(host);
+    const visibility = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) animate(); });
+    visibility.observe(host);
+    const move = (event: PointerEvent) => { const bounds = host!.getBoundingClientRect(); pointerX = (event.clientX - bounds.left) / bounds.width * 2 - 1; };
+    host.addEventListener("pointermove", move, { passive: true });
+    const animate = () => {
+      if (!visible || frame) return;
+      const tick = () => {
+        if (!visible) { frame = 0; return; }
+        group.rotation.z += 0.0018;
+        group.rotation.y += 0.0007;
+        group.rotation.x += (pointerX * 0.1 - group.rotation.x) * 0.015;
+        stars.rotation.z -= 0.0002;
+        renderer.render(scene, camera);
+        frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    };
+    resize();
+    animate();
+    document.addEventListener("astro:before-swap", () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      visibility.disconnect();
+      host.removeEventListener("pointermove", move);
+      scene.traverse((object) => {
+        if (object instanceof THREE.Mesh || object instanceof THREE.Points || object instanceof THREE.Line) {
+          object.geometry.dispose();
+          const material = object.material;
+          if (Array.isArray(material)) material.forEach((item) => item.dispose());
+          else material.dispose();
+        }
+      });
+      renderer.dispose();
+    }, { once: true });
+  }
+</script>

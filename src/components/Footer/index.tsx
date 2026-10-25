@@ -22,8 +22,9 @@ const Footer = () => (
 
         <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
           <FooterColumn title="Explore" links={[
-            ["Home", "/"], ["About", "/about"], ["Our team", "/#team"],
-            ["Current projects", "/#current-projects"], ["Frequently asked questions", "/#faq"],
+            ["Home", "/"], ["About", "/about"], ["Our team", "/team"],
+            ["Projects", "/projects"], ["Careers", "/careers"],
+            ["Frequently asked questions", "/about#faq"],
           ]} />
         </div>
 
@@ -31,7 +32,7 @@ const Footer = () => (
           <FooterColumn title="Our projects" links={[
             ["Project Terra", "https://youthnotion.github.io/TERRA/"],
             ["Project Sunagorik", "https://youthnotion.github.io/sunagorik"],
-            ["Tech4Youth", "/#current-projects"],
+            ["Tech4Youth", "/projects#current-projects"],
           ]} />
         </div>
 

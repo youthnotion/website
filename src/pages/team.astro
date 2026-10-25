@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Team from "../components/Team";
+import PageHero from "../components/PageHero.astro";
+---
+
+<Layout title="Our Team" description="Meet the directors, project leads, coordinators, and engineers working with Youth Notion.">
+  <main>
+    <PageHero
+      variant="team"
+      eyebrow="PEOPLE OF YOUTH NOTION"
+      title="The people moving ideas into action."
+      description="Meet the directors, coordinators, and makers turning ideas into meaningful work for young people."
+      actionLabel="Meet our people"
+      actionHref="#team"
+      secondaryLabel="Explore our projects"
+      secondaryHref="/projects"
+    />
+    <Team client:visible />
+  </main>
+</Layout>

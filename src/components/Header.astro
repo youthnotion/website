@@ -2,14 +2,17 @@
 const items = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Projects", href: "/#current-projects" },
+  { label: "Team", href: "/team" },
+  { label: "Projects", href: "/projects" },
+  { label: "Careers", href: "/careers" },
 ];
 const isHome = Astro.url.pathname === "/";
-const startingLogo = "/images/logo/YN-3.svg";
+const darkHero = isHome || ["/about", "/team", "/projects"].includes(Astro.url.pathname);
+const startingLogo = darkHero ? "/images/logo/YN-3.svg" : "/images/logo/YN-3-dark.svg";
 const navTextClass = "text-dark hover:text-youth";
 ---
 
-<header id="siteHeader" class:list={["ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent", { "home-header": isHome }]}>
+<header id="siteHeader" class:list={["ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent", { "home-header": darkHero }]}>
   <div class="container">
     <div class="relative -mx-4 flex items-center justify-between">
       <a href="/" class="navbar-logo block w-60 max-w-full px-4 py-5" aria-label="Youth Notion home">
@@ -30,9 +33,9 @@ const navTextClass = "text-dark hover:text-youth";
           </svg>
         </button>
         <button id="navbarToggler" type="button" aria-label="Open navigation" aria-expanded="false" class="rounded-lg px-3 py-2 ring-youth focus:ring-2 lg:hidden">
-          <span class="my-1.5 block h-0.5 w-[30px] bg-white"></span>
-          <span class="my-1.5 block h-0.5 w-[30px] bg-white"></span>
-          <span class="my-1.5 block h-0.5 w-[30px] bg-white"></span>
+          <span class:list={["my-1.5 block h-0.5 w-[30px]", darkHero ? "bg-white" : "bg-dark"]}></span>
+          <span class:list={["my-1.5 block h-0.5 w-[30px]", darkHero ? "bg-white" : "bg-dark"]}></span>
+          <span class:list={["my-1.5 block h-0.5 w-[30px]", darkHero ? "bg-white" : "bg-dark"]}></span>
         </button>
       </div>
     </div>
@@ -96,6 +99,10 @@ const navTextClass = "text-dark hover:text-youth";
   @media (max-width: 959px) {
     .home-header:not(.sticky-menu) #navbarCollapse li > a {
       color: #1f2937;
+    }
+
+    :global(.dark) .home-header:not(.sticky-menu) #navbarCollapse li > a {
+      color: #fff;
     }
   }
 </style>

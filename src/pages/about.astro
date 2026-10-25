@@ -1,14 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import About from "../components/About";
-import Breadcrumb from "../components/Common/Breadcrumb";
-import Team from "../components/Team";
+import Faq from "../components/Faq";
+import PageHero from "../components/PageHero.astro";
 ---
 
 <Layout title="About Youth Notion" description="Learn about Youth Notion, a youth-led organization in Maijdee, Noakhali, Bangladesh, and our work in youth empowerment, civic awareness, education, and technology.">
   <main>
-    <Breadcrumb pageName="About Us" pageDescription="Empowering young people to contribute to a brighter future." />
+    <PageHero
+      variant="about"
+      eyebrow="OUR PURPOSE"
+      title="A generation ready to shape what comes next."
+      description="We help young people build the knowledge, skills, and confidence to make meaningful change in their communities."
+      actionLabel="Our approach"
+      actionHref="#about"
+      secondaryLabel="Meet the team"
+      secondaryHref="/team"
+    />
     <About client:load />
-    <Team client:visible />
+    <Faq client:visible />
   </main>
 </Layout>

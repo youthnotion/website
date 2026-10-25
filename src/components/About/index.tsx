@@ -183,7 +183,7 @@ const About = () => {
             <span className="about-kicker">WHY YOUTH NOTION</span>
             <h2>Potential becomes progress when young people can take part.</h2>
             <p>Youth Notion helps young people understand the challenges around them, gain practical skills, and lead action that makes a difference in their communities.</p>
-            <Link href="/#current-projects" className="about-link">See what we’re building <span aria-hidden="true">↗</span></Link>
+            <Link href="/projects" className="about-link">See what we’re building <span aria-hidden="true">↗</span></Link>
           </div>
           <div ref={sceneHostRef} className="about-three" role="img" aria-label="An animated three-dimensional network connecting youth awareness, skills, leadership, and community impact">
             <span className="about-three-caption">CONNECTED IDEAS. SHARED PROGRESS.</span>
