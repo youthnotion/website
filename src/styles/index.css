@@ -281,6 +281,54 @@ body {
   @apply bg-primary hover:bg-dark text-white hover:text-white;
 }
 
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.footer-social-link svg {
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+.footer-social-link:hover svg,
+.footer-social-link:focus-visible svg {
+  transform: rotate(-8deg) scale(1.12);
+}
+
+.footer-social-link-whatsapp::before {
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border: 1px solid #25d366;
+  border-radius: inherit;
+  content: "";
+  animation: footer-whatsapp-pulse 2.4s ease-out infinite;
+}
+
+@keyframes footer-whatsapp-pulse {
+  0%, 100% { opacity: 0; transform: scale(.92); }
+  18% { opacity: .55; }
+  68% { opacity: 0; transform: scale(1.42); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-link,
+  .footer-social-link svg {
+    transition: none;
+  }
+
+  .footer-social-link:hover,
+  .footer-social-link:focus-visible,
+  .footer-social-link:hover svg,
+  .footer-social-link:focus-visible svg {
+    transform: none;
+  }
+
+  .footer-social-link-whatsapp::before {
+    animation: none;
+  }
+}
+
 .navbarTogglerActive > span:nth-child(1) {
   @apply top-[7px] rotate-45 transform;
 }
