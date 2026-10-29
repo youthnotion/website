@@ -1,118 +1,7 @@
 import { useEffect, useRef } from "react";
 import type * as ThreeTypes from "three";
-import type { TeamType } from "@/types/team";
 import SingleTeam from "./SingleTeam";
-
-const teamData: TeamType[] = [
-  {
-    id: 1,
-    name: "Abid Hasan",
-    designation: "Web Engineering Lead",
-    image: "/images/team/abid.png",
-    sunagorik: true,
-    terra: true,
-  },
-  {
-    id: 2,
-    name: "Ashfaqur Rahman Chowdhury",
-    designation: "Director of Operations",
-    image: "/images/team/ashfaq.png",
-    sunagorik: true,
-    terra: true,
-  },
-  {
-    id: 3,
-    name: "Iftikharul Islam",
-    designation: "Business Development Lead",
-    image: "/images/team/Iftekharul Islam.png",
-    sunagorik: true,
-    terra: true,
-  },
-  {
-    id: 4,
-    name: "Imranul Karim",
-    designation: "Operations Associate",
-    image: "/images/team/imran.png",
-    sunagorik: true,
-  },
-  {
-    id: 5,
-    name: "Khaled Saifulla",
-    designation: "Digital Graphic Designer",
-    image: "/images/team/Evan.png",
-    sunagorik: true,
-  },
-  {
-    id: 6,
-    name: "Mahadi Sajjad Neloy",
-    designation: "Director of Engineering",
-    portraitHidden: true,
-    terra: true,
-  },
-  {
-    id: 7,
-    name: "Meheraj Patwari",
-    designation: "Regional Coordinator",
-    image: "/images/team/Meheraj Patwari.png",
-    sunagorik: true,
-  },
-  {
-    id: 8,
-    name: "Muaz Labib",
-    designation: "Regional Coordinator",
-    image: "/images/team/Muaz Labib.png",
-    sunagorik: true,
-  },
-  {
-    id: 9,
-    name: "Mumtahin Sifat",
-    designation: "PR Lead · Project Sunagorik",
-    image: "/images/team/sifat.png",
-    sunagorik: true,
-  },
-  {
-    id: 10,
-    name: "Rafia Safa",
-    designation: "HR Lead · Project Sunagorik",
-    image: "/images/team/safa.png",
-    sunagorik: true,
-  },
-  {
-    id: 11,
-    name: "Rakan Mahmud",
-    designation: "Junior Web Engineer",
-    image: "/images/team/rakan.png",
-    sunagorik: true,
-  },
-  {
-    id: 12,
-    name: "Sahidul Islam Rahat",
-    designation: "Regional Coordinator",
-    image: "/images/team/Sahidul Islam Rahat.png",
-    sunagorik: true,
-  },
-  {
-    id: 13,
-    name: "Shamsunnahar Maisha",
-    designation: "Director of Research",
-    image: "/images/team/Samsun Naher.png",
-    terra: true,
-  },
-  {
-    id: 14,
-    name: "Sultana Rajia",
-    designation: "Campaign Lead · Project Sunagorik",
-    image: "/images/team/trisha.png",
-    sunagorik: true,
-  },
-  {
-    id: 15,
-    name: "Sumit Das",
-    designation: "Director of Accounting",
-    image: "/images/team/Sumit Das.png",
-    sunagorik: true,
-  },
-];
+import { teamData } from "@/data/team";
 
 const Team = () => {
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -331,20 +220,6 @@ const Team = () => {
 
   return (
     <section id="team" className="team-section">
-      <div className="team-intro">
-        <div ref={sceneRef} className="team-network" aria-hidden="true" />
-        <div className="team-intro-content">
-          <p className="team-eyebrow"><span /> THE PEOPLE BEHIND THE WORK</p>
-          <h2>Meet the team.</h2>
-          <p className="team-intro-copy">
-            Leaders, coordinators, and makers turning ideas into meaningful work for young people.
-          </p>
-          <div className="team-count"><strong>{teamData.length}</strong><span>people<br />one shared mission</span></div>
-        </div>
-        <div className="team-coordinate team-coordinate-top" aria-hidden="true">YOUTH NOTION / TEAM NETWORK</div>
-        <div className="team-coordinate team-coordinate-bottom" aria-hidden="true">NOAKHALI, BANGLADESH <span>● CONNECTED</span></div>
-      </div>
-
       <div className="container team-roster-wrap">
         <div className="team-roster-heading">
           <div>

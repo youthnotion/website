@@ -10,6 +10,8 @@ interface Props {
   variant?: "about" | "team" | "projects";
 }
 
+import { teamData } from "@/data/team";
+
 const {
   eyebrow,
   title,
@@ -40,7 +42,7 @@ const {
       <div class="page-art-orbit orbit-a"></div>
       <div class="page-art-orbit orbit-b"></div>
       <div class="page-art-orbit orbit-c"></div>
-      <div class="page-art-core"><span>{variant === "team" ? "15" : variant === "projects" ? "03" : "YN"}</span><small>{variant === "team" ? "PEOPLE IN MOTION" : variant === "projects" ? "IDEAS IN ACTION" : "POTENTIAL → PROGRESS"}</small></div>
+      <div class="page-art-core"><span>{variant === "team" ? teamData.length : variant === "projects" ? "03" : "YN"}</span><small>{variant === "team" ? "PEOPLE IN MOTION" : variant === "projects" ? "IDEAS IN ACTION" : "POTENTIAL → PROGRESS"}</small></div>
       <canvas class="page-hero-canvas"></canvas>
       <span class="page-art-caption">MOVE WITH PURPOSE <b>✳</b></span>
     </div>
