@@ -10,12 +10,16 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  bodyClass?: string;
+  footerTheme?: "default" | "projects";
 }
 
 const {
   title = "Youth Notion | Youth Empowerment in Bangladesh",
   description = "Youth Notion is a youth-led organization in Maijdee, Noakhali, Bangladesh, empowering young people through education, civic awareness, technology, and community action.",
   noindex = false,
+  bodyClass,
+  footerTheme = "default",
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title.includes("Youth Notion") ? title : `${title} | Youth Notion`;
@@ -76,10 +80,10 @@ const website = {
     <Analytics />
     <SpeedInsights />
   </head>
-  <body id="top">
+  <body id="top" class={bodyClass}>
     <Header />
     <slot />
-    <Footer />
+    <Footer theme={footerTheme} />
     <ScrollToTop client:load />
   </body>
 </html>

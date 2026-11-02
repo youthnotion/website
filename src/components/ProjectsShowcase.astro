@@ -1,0 +1,63 @@
+---
+const projects = [
+  {
+    name: "Project TERRA",
+    slug: "terra",
+    href: "https://youthnotion.github.io/TERRA/",
+    description: "TRACKING AND ENVIRONMENTAL REAL-TIME RESPONSE APPARATUS",
+  },
+  {
+    name: "Project Sunagorik",
+    slug: "sunagorik",
+    href: "https://youthnotion.github.io/sunagorik",
+    description: "Promoting civic awareness and community engagement among youth.",
+  },
+  {
+    name: "Project BariOS",
+    slug: "barios",
+    href: "https://bari-os.com",
+    description: "A mobile-first rental OS for Bangladesh: discover verified listings, track rent, and keep repairs moving without the usual hassle.",
+  },
+];
+---
+
+<section id="current-projects" class="projects-showcase" aria-label="Current projects">
+  <div class="projects-showcase__backdrop" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+    <span class="grid-sheen"></span>
+  </div>
+
+  <div class="container projects-showcase__inner">
+    <div class="projects-showcase__intro">
+      <p class="eyebrow eyebrow--soft">Current Projects</p>
+      <h2>Ideas that move people toward better futures.</h2>
+      <p>
+        Each initiative blends community insight, digital systems, and action-driven thinking to help young people lead change locally and beyond.
+      </p>
+    </div>
+
+    <div class="project-grid">
+      {projects.map((project, index) => (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class:list={["project-card", `project-card--${project.slug}`]}
+          aria-label={`Open ${project.name}`}
+        >
+          <div class="project-card__top">
+            <div class="project-card__title">
+              <h3>{project.name}</h3>
+            </div>
+            <span class="project-card__index">{String(index + 1).padStart(2, "0")}</span>
+          </div>
+
+          <p>{project.description}</p>
+          <span class="project-card__link">View project <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import CurrentProjects from "../components/CurrentProjects";
+import ProjectsShowcase from "../components/ProjectsShowcase.astro";
 import PageHero from "../components/PageHero.astro";
 ---
 
-<Layout title="Projects" description="Explore Youth Notion’s projects in environmental response, civic awareness, and youth technology.">
-  <main>
+<Layout title="Projects" description="Explore Youth Notion’s projects in environmental response, civic awareness, and youth technology." bodyClass="projects-page" footerTheme="projects">
+  <main class="projects-page-main">
     <PageHero
       variant="projects"
       eyebrow="IDEAS INTO ACTION"
@@ -16,6 +16,6 @@ import PageHero from "../components/PageHero.astro";
       secondaryLabel="Why Youth Notion"
       secondaryHref="/about"
     />
-    <CurrentProjects client:visible />
+    <ProjectsShowcase />
   </main>
 </Layout>
