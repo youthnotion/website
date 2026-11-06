@@ -8,16 +8,20 @@ Youth Notion aims to help young people become self-reliant, responsible citizens
 
 ## Projects
 
-- Project Terra: https://youthnotion.github.io/TERRA/
-- Sunagorik: https://youthnotion.github.io/sunagorik
-- Tech4Youth: https://youthnotion.orgs.bd/#current-projects
+- Project TERRA (Tracking and Environmental Real-time Response Apparatus): https://youthnotion.github.io/TERRA/
+- Project Sunagorik (civic awareness and community engagement among youth): https://youthnotion.github.io/sunagorik
+- Project BariOS (a mobile-first rental OS for Bangladesh): https://bari-os.com
 
 ## Main pages
 
 - Home: https://youthnotion.orgs.bd/
 - About Youth Notion: https://youthnotion.orgs.bd/about
-- Frequently asked questions: https://youthnotion.orgs.bd/#faq
-- Current projects: https://youthnotion.orgs.bd/#current-projects
+- Frequently asked questions: https://youthnotion.orgs.bd/about#faq
+- Team: https://youthnotion.orgs.bd/team
+- Projects: https://youthnotion.orgs.bd/projects
+- Careers: https://youthnotion.orgs.bd/careers
+- Web Engineering Intern: https://youthnotion.orgs.bd/careers/web-engineering-intern
+- Systems Engineering Intern: https://youthnotion.orgs.bd/careers/systems-engineering-intern
 
 ## Official profiles
 

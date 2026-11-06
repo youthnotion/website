@@ -1,0 +1,185 @@
+---
+// A project's logo at a given size, on a transparent background. TERRA and BariOS
+// are inline SVGs so they can animate; TERRA's motion comes from its own site and
+// BariOS's is rebuilt from its mark's shapes. Other projects use their logo file.
+import { Image } from "astro:assets";
+import type { Project } from "@/data/projects";
+
+interface Props {
+  project: Project;
+  size?: number;
+}
+
+const { project, size = 48 } = Astro.props;
+---
+
+<span class="mark" style={{ "--size": `${size}px`, "--accent": project.accent }}>
+  {
+    project.slug === "terra" ? (
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path class="t-shell" d="M32 3 56 17v30L32 61 8 47V17L32 3Z" />
+        <path class="t-contour" d="M18 21c5-5 11-5 15-1s8 5 13 1M16 28c6-5 12-5 17-1s9 5 15 1" />
+        <path class="t-terrain" d="M15 39c5-5 11-5 17-1s11 4 17-1v9L32 56 15 46v-7Z" />
+        <path class="t-wave" d="M16 39c5-4 11-4 16 0s11 4 17 0" />
+        <circle class="t-halo" cx="32" cy="27" r="8" />
+        <circle class="t-sensor" cx="32" cy="27" r="3" />
+        <path class="t-signal" d="M32 15v5m-5-2a7 7 0 0 0-3 3m13-3a7 7 0 0 1 3 3" />
+      </svg>
+    ) : project.slug === "barios" ? (
+      <svg viewBox="216 124 592 776" aria-hidden="true">
+        <polygon class="b-trace" pathLength="1" points="512,144 787,302 787,722 512,880 236,722 236,302" />
+        <path
+          class="b-body"
+          fill-rule="evenodd"
+          d="M512 144L787 302L787 722L512 880L236 722L236 302ZM489 290L364 361L364 537L644 378ZM787 458L704 505L787 552ZM618 548L658 571L658 662L531 738L410 667Z"
+        />
+        <path class="b-band" d="M628 211L787 302L787 458L489 290Z" />
+        <path class="b-band b-band--lower" d="M481 470L618 548L410 667L275 744L236 722L236 610Z" />
+      </svg>
+    ) : project.logo ? (
+      <Image src={project.logo} alt="" width={size} densities={[1, 2]} />
+    ) : (
+      <span class="mark__letter">{project.name.replace("Project ", "").charAt(0)}</span>
+    )
+  }
+</span>
+
+<style>
+  .mark {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--size);
+    height: var(--size);
+    color: var(--accent);
+  }
+
+  svg {
+    width: 86%;
+    height: 86%;
+    overflow: visible;
+  }
+
+  .mark :global(img) {
+    width: 86%;
+    height: 86%;
+    object-fit: contain;
+  }
+
+  .mark__letter {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: calc(var(--size) * 0.46);
+    line-height: 1;
+  }
+
+  /* ---- TERRA ---- */
+
+  .t-shell,
+  .t-terrain {
+    fill: color-mix(in srgb, currentColor 10%, transparent);
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+
+  .t-terrain {
+    fill: color-mix(in srgb, currentColor 22%, transparent);
+    stroke-width: 1.25;
+  }
+
+  .t-contour,
+  .t-signal {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+
+  .t-wave {
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-dasharray: 54;
+    animation: terra-wave 3.2s ease-in-out infinite;
+  }
+
+  .t-halo {
+    fill: color-mix(in srgb, currentColor 16%, transparent);
+    stroke: currentColor;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: terra-pulse 2.4s ease-out infinite;
+  }
+
+  .t-sensor {
+    fill: var(--text);
+  }
+
+  @keyframes terra-wave {
+    0%,
+    12% {
+      stroke-dashoffset: 54;
+    }
+
+    55%,
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes terra-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scale(0.82);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.18);
+    }
+  }
+
+  /* ---- BariOS: a light runs round the hexagon while the bands breathe ---- */
+
+  .b-body {
+    fill: var(--text);
+  }
+
+  .b-band {
+    fill: #da5326;
+    animation: barios-band 4s ease-in-out infinite;
+  }
+
+  .b-band--lower {
+    animation-delay: 0.5s;
+  }
+
+  .b-trace {
+    fill: none;
+    stroke: var(--amber);
+    stroke-width: 16;
+    stroke-linejoin: round;
+    stroke-dasharray: 0.16 0.84;
+    animation: barios-trace 4s linear infinite;
+  }
+
+  @keyframes barios-band {
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes barios-trace {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+// Projects: an engineering drawing that sketches itself. A flood wave for TERRA,
+// a civic pulse for Sunagorik and a hexagon for BariOS, all on one shared line.
+import { projectBySlug } from "@/data/projects";
+
+const terra = projectBySlug("terra");
+const sunagorik = projectBySlug("sunagorik");
+const barios = projectBySlug("barios");
+
+const short = (name: string) => name.replace("Project ", "");
+const corners = ["M18 46V18H46", "M454 18H482V46", "M482 454V482H454", "M46 482H18V454"];
+const ticks = Array.from({ length: 21 }, (_, i) => 50 + i * 20);
+---
+
+<svg class="blueprint" viewBox="0 0 500 500">
+  <g class="blueprint__frame">
+    {corners.map((d) => <path d={d} />)}
+    {ticks.map((x, i) => <line x1={x} y1="482" x2={x} y2={i % 5 === 0 ? 472 : 477} />)}
+  </g>
+
+  <path class="draw bus" pathLength="1" d="M36 60V400" style="--d: 0" />
+  <path class="draw branch" pathLength="1" d="M36 118H58" style="--d: 0.5" />
+  <path class="draw branch" pathLength="1" d="M36 262H198" style="--d: 0.9" />
+  <path class="draw branch" pathLength="1" d="M36 400H92" style="--d: 1.3" />
+  <path class="blueprint__run" pathLength="1" d="M36 60V400" />
+  {[118, 262, 400].map((y) => <rect class="blueprint__joint" x="32" y={y - 4} width="8" height="8" />)}
+
+  <g style={{ "--c": terra.accent }}>
+    <path class="draw stroke" pathLength="1" d="M58 118C98 86 138 86 178 118S258 150 298 118" style="--d: 1" />
+    <path class="draw stroke faint" pathLength="1" d="M58 142C98 110 138 110 178 142S258 174 298 142" style="--d: 1.4" />
+    <path class="draw stroke faint" pathLength="1" d="M178 60V110" style="--d: 1.8" />
+    <circle class="ping" cx="178" cy="56" r="14" />
+    <circle class="solid" cx="178" cy="56" r="4.5" />
+    <g class="note" style="--d: 2.2">
+      <text class="note__title" x="316" y="116">01 {short(terra.name)}</text>
+      <text class="note__text" x="316" y="134">{terra.field}</text>
+    </g>
+  </g>
+
+  <g style={{ "--c": sunagorik.accent }}>
+    <path class="draw stroke" pathLength="1" d="M198 262H272L288 226L310 304L328 244L340 262H462" style="--d: 2" />
+    <circle class="ping" cx="462" cy="262" r="14" style="animation-delay: 1.2s" />
+    <circle class="solid" cx="462" cy="262" r="4.5" />
+    <g class="note" style="--d: 3">
+      <text class="note__title" x="60" y="244">02 {short(sunagorik.name)}</text>
+      <text class="note__text" x="60" y="284">{sunagorik.field}</text>
+    </g>
+  </g>
+
+  <g style={{ "--c": barios.accent }}>
+    <polygon class="draw stroke" pathLength="1" points="150,328 212,364 212,436 150,472 88,436 88,364" style="--d: 3" />
+    <polygon class="draw stroke faint" pathLength="1" points="150,356 188,378 188,422 150,444 112,422 112,378" style="--d: 3.5" />
+    <path class="draw stroke faint" pathLength="1" d="M212 400H250" style="--d: 3.9" />
+    <g class="note" style="--d: 4.2">
+      <text class="note__title" x="262" y="396">03 {short(barios.name)}</text>
+      <text class="note__text" x="262" y="414">{barios.field}</text>
+    </g>
+  </g>
+</svg>
+
+<style>
+  .blueprint {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .blueprint__frame {
+    fill: none;
+    stroke: var(--line-strong);
+  }
+
+  .draw {
+    fill: none;
+    stroke-dasharray: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: blueprint-draw 15s ease-in-out infinite backwards;
+    animation-delay: calc(var(--d) * 1s);
+  }
+
+  .bus,
+  .branch {
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+
+  .stroke {
+    stroke: var(--c);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c) 50%, transparent));
+  }
+
+  .faint {
+    stroke-width: 1.25;
+    opacity: 0.55;
+    filter: none;
+  }
+
+  /* The light that keeps running along the shared line. */
+  .blueprint__run {
+    fill: none;
+    stroke: var(--lime);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 0.1 0.9;
+    animation: blueprint-run 3.6s linear infinite;
+  }
+
+  .blueprint__joint {
+    fill: var(--ink);
+    stroke: var(--lime);
+  }
+
+  .solid {
+    fill: var(--c);
+  }
+
+  .ping {
+    fill: none;
+    stroke: var(--c);
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: blueprint-ping 3s ease-out infinite;
+  }
+
+  .note {
+    animation: blueprint-note 15s ease-in-out infinite backwards;
+    animation-delay: calc(var(--d) * 1s);
+  }
+
+  .note__title {
+    fill: var(--text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .note__text {
+    fill: var(--c);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @keyframes blueprint-draw {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 1;
+    }
+
+    14%,
+    72% {
+      stroke-dashoffset: 0;
+    }
+
+    80% {
+      opacity: 1;
+    }
+
+    90%,
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes blueprint-note {
+    0%,
+    6% {
+      opacity: 0;
+    }
+
+    14%,
+    80% {
+      opacity: 1;
+    }
+
+    90%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes blueprint-run {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes blueprint-ping {
+    from {
+      opacity: 0.8;
+      transform: scale(0.35);
+    }
+
+    to {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+</style>

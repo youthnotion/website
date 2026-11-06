@@ -1,15 +1,22 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero";
-import Features from "../components/Features";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/sections/home/Hero.astro";
+import Marquee from "@/components/ui/Marquee.astro";
+import Objectives from "@/components/sections/home/Objectives.astro";
+import ProjectsPreview from "@/components/sections/home/ProjectsPreview.astro";
+import TeamTeaser from "@/components/sections/home/TeamTeaser.astro";
+import { journey } from "@/data/content";
+
+const pillars = ["Learn", "Connect", "Lead", ...journey.map((step) => step.name)];
 ---
 
-<Layout
+<BaseLayout
   title="Youth Notion | Empowering Young People in Bangladesh"
   description="Youth Notion is a youth-led organization based in Maijdee, Noakhali, Bangladesh. We empower young people through education, civic awareness, technology, and community action."
 >
-  <main>
-    <Hero client:visible />
-    <Features />
-  </main>
-</Layout>
+  <Hero />
+  <Marquee items={pillars} />
+  <Objectives />
+  <ProjectsPreview />
+  <TeamTeaser />
+</BaseLayout>

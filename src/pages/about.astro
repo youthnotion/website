@@ -1,23 +1,25 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import About from "../components/About";
-import Faq from "../components/Faq";
-import PageHero from "../components/PageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import GrowthArt from "@/components/ui/hero-art/GrowthArt.astro";
+import Story from "@/components/sections/about/Story.astro";
+import Faq from "@/components/sections/about/Faq.astro";
 ---
 
-<Layout title="About Youth Notion" description="Learn about Youth Notion, a youth-led organization in Maijdee, Noakhali, Bangladesh, and our work in youth empowerment, civic awareness, education, and technology.">
-  <main>
-    <PageHero
-      variant="about"
-      eyebrow="OUR PURPOSE"
-      title="A generation ready to shape what comes next."
-      description="We help young people build the knowledge, skills, and confidence to make meaningful change in their communities."
-      actionLabel="Our approach"
-      actionHref="#about"
-      secondaryLabel="Meet the team"
-      secondaryHref="/team"
-    />
-    <About client:load />
-    <Faq client:visible />
-  </main>
-</Layout>
+<BaseLayout
+  title="About Youth Notion"
+  description="Learn about Youth Notion, a youth-led organization in Maijdee, Noakhali, Bangladesh, and our work in youth empowerment, civic awareness, education, and technology."
+>
+  <PageHero
+    eyebrow="Our purpose"
+    title="A generation ready"
+    accent="to shape what comes next."
+    description="We help young people build the knowledge, skills, and confidence to make meaningful change in their communities."
+    primary={{ label: "Our approach", href: "#approach" }}
+    secondary={{ label: "Meet the team", href: "/team" }}
+  >
+    <GrowthArt slot="art" />
+  </PageHero>
+  <Story />
+  <Faq />
+</BaseLayout>

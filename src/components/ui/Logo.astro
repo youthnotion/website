@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import mark from "@/assets/brand/mark.png";
+
+interface Props {
+  size?: number;
+}
+
+const { size = 40 } = Astro.props;
+---
+
+<a href="/" class="logo" aria-label="Youth Notion home">
+  <Image src={mark} alt="" width={size} height={size} densities={[1, 2]} loading="eager" class="logo__mark" />
+  <span class="logo__word">Youth<span>Notion</span></span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    gap: 0.7rem;
+  }
+
+  .logo__mark {
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .logo:hover .logo__mark {
+    transform: rotate(45deg);
+  }
+
+  .logo__word {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .logo__word span {
+    color: var(--lime);
+  }
+</style>

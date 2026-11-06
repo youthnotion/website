@@ -1,0 +1,163 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Emblem from "@/components/ui/Emblem.astro";
+import { team } from "@/data/team";
+import { projects } from "@/data/projects";
+import { site } from "@/data/site";
+
+const stats = [
+  { value: String(team.length), label: "People on the team" },
+  { value: String(projects.length).padStart(2, "0"), label: "Active projects" },
+  { value: site.address.region, label: "Where we started" },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__backdrop" aria-hidden="true">
+    <div class="grid-bg"></div>
+    <canvas data-node-field></canvas>
+    <div class="hero__glow"></div>
+  </div>
+
+  <div class="container hero__layout">
+    <div class="hero__copy">
+      <p class="eyebrow intro" style="--d: 0">{site.tagline}</p>
+      <h1 id="hero-title" class="display">
+        <span class="intro-line"><span style="--d: 1">The next chapter</span></span>
+        <span class="intro-line"><span style="--d: 2" class="accent">belongs to us.</span></span>
+      </h1>
+      <p class="lede intro" style="--d: 3">
+        Youth Notion equips young people with the civic knowledge, digital tools, and confidence to shape a
+        better future for their communities.
+      </p>
+      <div class="hero__actions intro" style="--d: 4">
+        <Button href="/about">Discover our mission</Button>
+        <Button href="/projects" variant="ghost" icon="arrow-up-right">Explore our work</Button>
+      </div>
+
+      <dl class="hero__stats intro" style="--d: 5">
+        {
+          stats.map((stat) => (
+            <div>
+              <dt>{stat.label}</dt>
+              <dd>{stat.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="hero__art intro" style="--d: 2">
+      <Emblem />
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mountNodeField } from "@/scripts/node-field";
+  const canvas = document.querySelector<HTMLCanvasElement>("[data-node-field]");
+  if (canvas) mountNodeField(canvas);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: min(100svh, 1000px);
+    display: flex;
+    align-items: center;
+    padding-block: 120px 80px;
+    overflow: hidden;
+  }
+
+  .hero__backdrop,
+  .hero__backdrop > * {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero__backdrop canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__glow {
+    background:
+      radial-gradient(40% 50% at 75% 45%, rgb(36 100 118 / 0.45), transparent 70%),
+      radial-gradient(30% 40% at 15% 85%, rgb(125 174 65 / 0.14), transparent 70%);
+  }
+
+  .hero__layout {
+    position: relative;
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1000px) {
+    .hero__layout {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .hero__copy h1 {
+    margin-block: 1.5rem 1.75rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero__stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+  }
+
+  .hero__stats dt {
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hero__stats dd {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .hero__art {
+    max-width: 560px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 999px) {
+    .hero__art {
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero__stats {
+      grid-template-columns: repeat(2, auto);
+    }
+  }
+</style>

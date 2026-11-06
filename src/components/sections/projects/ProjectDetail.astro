@@ -1,0 +1,223 @@
+---
+import Button from "@/components/ui/Button.astro";
+import ProjectMark from "@/components/ui/ProjectMark.astro";
+import type { Project } from "@/data/projects";
+
+interface Props {
+  project: Project;
+  /** How many of our team work on it, when we track that. */
+  members?: number;
+}
+
+const { project, members } = Astro.props;
+---
+
+<article class="detail chamfer" id={project.slug} style={{ "--accent": project.accent }}>
+  <div class="detail__story">
+    <header class="detail__head">
+      <ProjectMark project={project} size={60} />
+      <div>
+        <p class="detail__field">{project.field}</p>
+        <h3>{project.name}</h3>
+      </div>
+    </header>
+
+    <p class="detail__tagline">{project.tagline}</p>
+    <p class="detail__about">{project.about}</p>
+
+    {
+      project.stats && (
+        <dl class="detail__stats">
+          {project.stats.map((stat) => (
+            <div>
+              <dt>{stat.label}</dt>
+              <dd>{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+  </div>
+
+  <div class="detail__side">
+    <ul class="detail__highlights" role="list">
+      {
+        project.highlights.map((highlight) => (
+          <li>
+            <h4>{highlight.title}</h4>
+            <p>{highlight.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="detail__audience">
+      <p>Built for</p>
+      <ul role="list">{project.audience.map((group) => <li>{group}</li>)}</ul>
+    </div>
+
+    <div class="detail__foot">
+      {members ? <span>{members} team members</span> : <span />}
+      <Button href={project.href} external variant="ghost" icon="arrow-up-right">Visit project</Button>
+    </div>
+  </div>
+</article>
+
+<style>
+  .detail {
+    --cut: 20px;
+    --chamfer-fill: var(--ink-2);
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    scroll-margin-top: 96px;
+  }
+
+  @media (min-width: 900px) {
+    .detail {
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+    }
+  }
+
+  .detail__head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .detail__field {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .detail h3 {
+    margin-top: 0.2rem;
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  }
+
+  .detail__tagline {
+    margin-top: 1.1rem;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+
+  .detail__about {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .detail__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .detail__stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 0.25rem;
+  }
+
+  .detail__stats dt {
+    color: var(--faint);
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .detail__stats dd {
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .detail__side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .detail__highlights {
+    display: grid;
+    gap: 0.9rem 1.25rem;
+  }
+
+  @media (min-width: 520px) {
+    .detail__highlights {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .detail__highlights li {
+    padding-left: 0.8rem;
+    border-left: 2px solid var(--accent);
+  }
+
+  .detail__highlights h4 {
+    font-size: 0.975rem;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+
+  .detail__highlights p {
+    margin-top: 0.2rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .detail__audience {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.75rem;
+    margin-top: auto;
+  }
+
+  .detail__audience > p {
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .detail__audience ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .detail__audience li {
+    padding: 0.15rem 0.55rem;
+    border: 1px solid var(--line-strong);
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .detail__foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+    color: var(--faint);
+    font-size: 0.82rem;
+  }
+</style>

@@ -1,8 +1,6 @@
 import { defineConfig } from "astro/config";
 import cloudflare from "@astrojs/cloudflare";
 import netlify from "@astrojs/netlify";
-import react from "@astrojs/react";
-import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel";
 
 // Use the adapter that matches the host's build environment. Cloudflare remains
@@ -15,8 +13,12 @@ const adapter = process.env.NETLIFY
 
 export default defineConfig({
   site: "https://youthnotion.orgs.bd",
-  output: "server",
+  // Every page is prerendered to static HTML (and its images optimised at build
+  // time). Routes that need a server opt out with `export const prerender = false`.
+  output: "static",
+  // No feature uses sessions; the memory driver stops the Cloudflare adapter
+  // from requiring a SESSION KV binding.
   session: { driver: "memory" },
   adapter,
-  integrations: [react(), tailwind()],
+  prefetch: { prefetchAll: true, defaultStrategy: "hover" },
 });

@@ -1,0 +1,266 @@
+---
+import Logo from "../ui/Logo.astro";
+import Icon from "../ui/Icon.astro";
+import Button from "../ui/Button.astro";
+import { navigation, site, socials } from "@/data/site";
+import { projects } from "@/data/projects";
+
+const explore = [...navigation, { label: "FAQ", href: "/about#faq" }];
+const { address } = site;
+---
+
+<footer class="footer" id="contact">
+  <div class="container">
+    <section class="footer__cta" aria-labelledby="contact-title" data-reveal>
+      <div>
+        <p class="eyebrow">Get in touch</p>
+        <h2 id="contact-title" class="title">
+          Have an idea worth building? <span class="accent">Let’s talk.</span>
+        </h2>
+      </div>
+      <div class="footer__cta-actions">
+        <Button href={site.whatsapp.href} external icon="whatsapp">Message us on WhatsApp</Button>
+        <p class="footer__phone">{site.whatsapp.label}</p>
+      </div>
+    </section>
+
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <Logo size={44} />
+        <p>{site.mission}</p>
+        <ul class="footer__socials" role="list">
+          {
+            socials.map((social) => (
+              <li>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Youth Notion on ${social.name}`}
+                >
+                  <Icon name={social.icon} size={18} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <nav aria-labelledby="footer-explore">
+        <h2 id="footer-explore">Explore</h2>
+        <ul role="list">
+          {
+            explore.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="footer-projects">
+        <h2 id="footer-projects">Projects</h2>
+        <ul role="list">
+          {
+            projects.map((project) => (
+              <li>
+                <a href={project.href} target="_blank" rel="noopener noreferrer">
+                  {project.name} <Icon name="arrow-up-right" size={14} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2>Office</h2>
+        <address>
+          {address.street},<br />
+          {address.locality}, {address.region}<br />
+          {address.country}
+        </address>
+      </div>
+    </div>
+
+    <div class="footer__base">
+      <span>© {new Date().getFullYear()} Youth Notion. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+
+  <p class="footer__giant" aria-hidden="true">YOUTH NOTION</p>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    background: radial-gradient(80% 60% at 50% 0%, rgb(36 100 118 / 0.28), transparent 70%), var(--ink-2);
+    padding-top: clamp(2.5rem, 4vw, 3.5rem);
+  }
+
+  .footer__cta {
+    display: grid;
+    gap: 2rem;
+    padding-bottom: clamp(2rem, 3.5vw, 3rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .footer__cta h2 {
+    margin-top: 0.75rem;
+    max-width: none;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .footer__cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .footer__phone {
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 900px) {
+    .footer__cta {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: end;
+    }
+
+    .footer__cta-actions {
+      align-items: flex-end;
+    }
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  @media (min-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+    }
+  }
+
+  .footer__brand p {
+    margin-top: 1.25rem;
+    max-width: 30ch;
+    color: var(--muted);
+  }
+
+  .footer__socials {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .footer__socials a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    color: var(--muted);
+    border: 1px solid var(--line-strong);
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+
+  .footer__socials a:hover {
+    color: var(--ink);
+    background: var(--lime);
+    border-color: var(--lime);
+  }
+
+  .footer__grid h2 {
+    margin-bottom: 1.1rem;
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .footer__grid nav ul {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .footer__grid nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .footer__grid nav a:hover {
+    color: var(--lime);
+  }
+
+  /* Comfortable tap targets on touch screens. */
+  @media (max-width: 899px) {
+    .footer__grid nav ul {
+      gap: 0;
+    }
+
+    .footer__grid nav a {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
+
+  address {
+    font-style: normal;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--line);
+    color: var(--faint);
+    font-size: 0.85rem;
+  }
+
+  .footer__base a {
+    padding-block: 0.8rem;
+    margin-block: -0.8rem;
+  }
+
+  .footer__base a:hover {
+    color: var(--text);
+  }
+
+  .footer__giant {
+    margin-bottom: -0.18em;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 15.5vw, 15rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+    background: linear-gradient(rgb(176 226 214 / 0.1), transparent 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    user-select: none;
+  }
+</style>

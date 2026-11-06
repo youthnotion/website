@@ -1,0 +1,154 @@
+---
+import Portrait from "@/components/ui/Portrait.astro";
+import { team, isDirector } from "@/data/team";
+
+const members = [...team].sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<section class="section roster" id="people" aria-labelledby="roster-title">
+  <div class="container">
+    <div class="roster__head" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">Our people</p>
+        <h2 id="roster-title" class="title">Different skills. <span class="accent">Shared purpose.</span></h2>
+      </div>
+    </div>
+
+    <ul class="roster__grid" role="list" data-roster>
+      {
+        members.map((member, index) => (
+          <li class="member chamfer" data-reveal style={{ "--reveal-index": index % 4 }}>
+            <div class="member__meta">
+              <div class="member__info">
+                <h3>{member.name}</h3>
+                <p class="member__role">{member.role}</p>
+              </div>
+              {member.name !== "Mahadi Sajjad Neloy" && <Portrait member={member} size={112} class="member__portrait" />}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .roster__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .roster__head .section-head {
+    margin: 0;
+  }
+
+  .roster__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 48vw), 1fr));
+    gap: clamp(0.8rem, 2vw, 1rem);
+  }
+
+  .member {
+    --cut: 20px;
+    display: flex;
+    align-items: center;
+    padding: 1.1rem 1.2rem;
+    min-height: 158px;
+  }
+
+  .member__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .member__info {
+    flex: 1;
+    text-align: left;
+  }
+
+  .member :global(.member__portrait) {
+    width: clamp(72px, 12vw, 110px);
+    height: clamp(72px, 12vw, 110px);
+    flex-shrink: 0;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .member:hover :global(.member__portrait) {
+    transform: scale(1.03) rotate(-2deg);
+  }
+
+  .member h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .member__role {
+    margin: 0.3rem 0 0;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  /* Four across on desktop. The cards are narrow here, so everything inside shrinks to keep room for text. */
+  @media (min-width: 1180px) {
+    .roster__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .member {
+      --cut: 16px;
+      min-height: 124px;
+      padding: 0.9rem 1rem;
+    }
+
+    .member__meta {
+      gap: 0.75rem;
+    }
+
+    .member :global(.member__portrait) {
+      width: 76px;
+      height: 76px;
+    }
+
+    .member h3 {
+      font-size: 1rem;
+    }
+
+    .member__role {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .member {
+      min-height: 100px;
+      padding: 0.75rem 0.9rem;
+    }
+
+    .member :global(.member__portrait) {
+      width: 68px;
+      height: 68px;
+    }
+
+    .member__meta {
+      gap: 0.75rem;
+    }
+
+    .member h3 {
+      font-size: 1rem;
+    }
+
+    .member__role {
+      font-size: 0.8rem;
+    }
+  }
+</style>

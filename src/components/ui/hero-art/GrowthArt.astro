@@ -1,0 +1,183 @@
+---
+// About: a seed grows outward through the four stages of the journey. Each ring
+// draws itself in turn, then the wave dissolves and starts again.
+import { journey } from "@/data/content";
+import { octagonPoints } from "@/lib/geometry";
+
+const CENTER = 250;
+const radii = [70, 125, 180, 235];
+const colors = [
+  "var(--teal)",
+  "color-mix(in srgb, var(--teal) 62%, var(--lime))",
+  "color-mix(in srgb, var(--teal) 30%, var(--lime))",
+  "var(--lime)",
+];
+
+const rings = journey.map((step, index) => {
+  const radius = radii[index];
+  return {
+    label: step.name,
+    points: octagonPoints(radius),
+    // The label rests on the ring's flat top edge.
+    y: CENTER - radius * Math.cos(Math.PI / 8),
+    width: step.name.length * 7.6 + 18,
+    color: colors[index],
+  };
+});
+---
+
+<svg class="growth" viewBox="0 0 500 500">
+  <polygon class="growth__spin" points={octagonPoints(246)} />
+  {rings.map((ring) => <polygon class="growth__ghost" points={ring.points} />)}
+  <polygon class="growth__pulse" points={rings[3].points} />
+  <polygon class="growth__pulse growth__pulse--late" points={rings[3].points} />
+
+  {
+    rings.map((ring, index) => (
+      <g style={{ "--i": index, "--c": ring.color }}>
+        <polygon class="growth__ring" pathLength="1" points={ring.points} />
+        <g class="growth__label">
+          <rect x={CENTER - ring.width / 2} y={ring.y - 11} width={ring.width} height="22" />
+          <text x={CENTER} y={ring.y + 4}>{ring.label}</text>
+        </g>
+      </g>
+    ))
+  }
+
+  <polygon class="growth__glow" points={octagonPoints(30)} />
+  <polygon class="growth__seed" points={octagonPoints(17)} />
+</svg>
+
+<style>
+  .growth {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  polygon {
+    fill: none;
+    transform-origin: 250px 250px;
+  }
+
+  .growth__ghost {
+    stroke: var(--line);
+  }
+
+  .growth__spin {
+    stroke: var(--line-strong);
+    stroke-dasharray: 2 12;
+    animation: growth-spin 90s linear infinite;
+  }
+
+  .growth__ring {
+    stroke: var(--c);
+    stroke-width: 1.75;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--c) 55%, transparent));
+    animation: growth-ring 13s ease-in-out infinite backwards;
+    animation-delay: calc(var(--i) * 1.5s);
+  }
+
+  .growth__label {
+    animation: growth-label 13s ease-in-out infinite backwards;
+    animation-delay: calc(var(--i) * 1.5s);
+  }
+
+  .growth__label rect {
+    fill: var(--ink);
+    stroke: var(--c);
+  }
+
+  .growth__label text {
+    fill: var(--c);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-anchor: middle;
+    text-transform: uppercase;
+  }
+
+  .growth__pulse {
+    stroke: var(--lime);
+    opacity: 0;
+    animation: growth-pulse 6.5s ease-out infinite;
+  }
+
+  .growth__pulse--late {
+    animation-delay: 3.25s;
+  }
+
+  .growth__seed {
+    fill: var(--lime);
+    animation: growth-breathe 3.25s ease-in-out infinite;
+  }
+
+  .growth__glow {
+    fill: var(--lime);
+    opacity: 0.2;
+    filter: blur(12px);
+    animation: growth-breathe 3.25s ease-in-out infinite;
+  }
+
+  @keyframes growth-ring {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 1;
+    }
+
+    14%,
+    70% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+
+    84%,
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes growth-label {
+    0%,
+    8% {
+      opacity: 0;
+    }
+
+    15%,
+    70% {
+      opacity: 1;
+    }
+
+    84%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes growth-pulse {
+    from {
+      opacity: 0.55;
+      transform: scale(0.08);
+    }
+
+    to {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes growth-breathe {
+    50% {
+      transform: scale(1.22);
+    }
+  }
+
+  @keyframes growth-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import Icon, { type IconName } from "./Icon.astro";
+
+interface Props {
+  href: string;
+  variant?: "primary" | "ghost";
+  icon?: IconName;
+  external?: boolean;
+  /** Cuts the top-right and bottom-left corners instead, to echo a card's top-right corner. */
+  flipCorners?: boolean;
+}
+
+const { href, variant = "primary", icon = "arrow-right", external = false, flipCorners = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={["button", `button--${variant}`, { "button--flipped": flipCorners }]}
+  {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+>
+  <span><slot /></span>
+  <Icon name={icon} size={18} class="button__icon" />
+</a>
+
+<style>
+  .button {
+    --cut: 10px;
+    --shape: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 3.25rem;
+    padding: 0.85rem 1.35rem 0.85rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.975rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    clip-path: var(--shape);
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      box-shadow 0.25s;
+  }
+
+  .button--flipped {
+    --shape: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  }
+
+  .button--primary {
+    background: var(--lime);
+    color: var(--ink);
+  }
+
+  .button--primary:hover {
+    background: #c2ef7d;
+  }
+
+  /* Hairline border that follows the cut corners: the button paints the line,
+     ::before paints the fill 1px inside it. */
+  .button--ghost {
+    background: var(--line-strong);
+    color: var(--text);
+  }
+
+  .button--ghost::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    clip-path: var(--shape);
+    background: var(--ink-2);
+    transition: background-color 0.25s;
+  }
+
+  .button--ghost:hover::before {
+    background: var(--surface-2);
+  }
+
+  .button :global(.button__icon) {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .button:hover :global(.button__icon) {
+    transform: translateX(3px);
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+// Careers: an isometric staircase with a light climbing it, one step at a time,
+// from internship towards a junior role. The step geometry and the hop
+// keyframes are both generated here so they always stay in sync.
+interface Props {
+  /** Labels pinned to the second and fourth steps. */
+  labels: [string, string];
+}
+
+const { labels } = Astro.props;
+
+const STEPS = 6;
+const HALF_W = 58;
+const HALF_H = 29;
+const RISE = 24;
+const START = { x: 92, y: 410 };
+
+const pts = (...points: [number, number][]) => points.map(([x, y]) => `${x},${y}`).join(" ");
+
+const steps = Array.from({ length: STEPS }, (_, i) => {
+  const x = START.x + i * HALF_W;
+  const y = START.y - i * (HALF_H + RISE);
+  const depth = 30 + i * RISE;
+  return {
+    i,
+    x,
+    y,
+    top: pts([x, y - HALF_H], [x + HALF_W, y], [x, y + HALF_H], [x - HALF_W, y]),
+    left: pts([x - HALF_W, y], [x, y + HALF_H], [x, y + HALF_H + depth], [x - HALF_W, y + depth]),
+    right: pts([x, y + HALF_H], [x + HALF_W, y], [x + HALF_W, y + depth], [x, y + HALF_H + depth]),
+  };
+});
+
+// Back to front, so nearer steps paint over the ones behind them.
+const paintOrder = [...steps].reverse();
+const last = steps[STEPS - 1];
+
+// One hop per step, then a pause at the top. Percentages of the 11s cycle.
+const HOP = 7;
+const at = (step: (typeof steps)[number], lift = 0) => `transform: translate(${step.x}px, ${step.y - 12 - lift}px);`;
+const frames = [`0% { ${at(steps[0])} opacity: 0; }`, `3% { ${at(steps[0])} opacity: 1; animation-timing-function: ease-out; }`];
+steps.slice(1).forEach((step, index) => {
+  const from = 3 + index * HOP;
+  const peak = { x: (steps[index].x + step.x) / 2, y: (steps[index].y + step.y) / 2, i: 0, top: "", left: "", right: "" };
+  frames.push(`${from + HOP / 2}% { ${at(peak, 38)} animation-timing-function: ease-in; }`);
+  frames.push(`${from + HOP}% { ${at(step)} animation-timing-function: ease-out; }`);
+});
+frames.push(`78% { ${at(last)} opacity: 1; }`, `88%, 100% { ${at(last, 46)} opacity: 0; }`);
+const hop = `@keyframes stairs-hop { ${frames.join(" ")} }`;
+---
+
+<svg class="stairs" viewBox="0 0 500 500" style={{ "--rest": `translate(${last.x}px, ${last.y - 12}px)` }}>
+  <style is:inline set:html={hop}></style>
+
+  {
+    paintOrder.map((step) => (
+      <g style={{ "--i": step.i }}>
+        <polygon class="face face--left" points={step.left} />
+        <polygon class="face face--right" points={step.right} />
+        <polygon class="tread" points={step.top} />
+      </g>
+    ))
+  }
+
+  <g class="flag">
+    <path d={`M${steps[1].x} ${steps[1].y - 8}V236`} />
+    <circle cx={steps[1].x} cy="236" r="3" />
+    <text x={steps[1].x} y="222">{labels[0]}</text>
+  </g>
+  <g class="flag flag--high">
+    <path d={`M${steps[3].x} ${steps[3].y - 8}V96`} />
+    <circle cx={steps[3].x} cy="96" r="3" />
+    <text x={steps[3].x} y="82">{labels[1]}</text>
+  </g>
+
+  <g class="stairs__ball">
+    <circle class="stairs__halo" r="20" />
+    <circle class="stairs__core" r="8" />
+  </g>
+</svg>
+
+<style>
+  .stairs {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .face {
+    stroke: var(--line-strong);
+    stroke-linejoin: round;
+  }
+
+  .face--left {
+    fill: var(--ink-2);
+  }
+
+  .face--right {
+    fill: var(--surface);
+  }
+
+  .tread {
+    fill: var(--surface-2);
+    stroke: color-mix(in srgb, var(--teal) 60%, transparent);
+    stroke-linejoin: round;
+    animation: stairs-tread 11s ease-out infinite;
+    animation-delay: calc(var(--i) * 0.77s);
+  }
+
+  /* The label stems sit on the steps; the labels themselves stay put. */
+  .flag {
+    fill: none;
+  }
+
+  .flag path {
+    stroke: var(--muted);
+    stroke-dasharray: 3 4;
+  }
+
+  .flag circle {
+    fill: var(--teal);
+  }
+
+  .flag--high circle {
+    fill: var(--lime);
+  }
+
+  .flag text {
+    fill: var(--text);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-anchor: middle;
+    text-transform: uppercase;
+  }
+
+  .stairs__ball {
+    transform: var(--rest);
+    animation: stairs-hop 11s linear infinite;
+  }
+
+  .stairs__core {
+    fill: var(--lime);
+  }
+
+  .stairs__halo {
+    fill: var(--lime);
+    opacity: 0.22;
+    filter: blur(7px);
+  }
+
+  @keyframes stairs-tread {
+    0%,
+    40% {
+      fill: var(--surface-2);
+    }
+
+    4%,
+    24% {
+      fill: color-mix(in srgb, var(--lime) 55%, var(--surface-2));
+    }
+  }
+</style>

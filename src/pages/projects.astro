@@ -1,21 +1,63 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ProjectsShowcase from "../components/ProjectsShowcase.astro";
-import PageHero from "../components/PageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import BlueprintArt from "@/components/ui/hero-art/BlueprintArt.astro";
+import ProjectDetail from "@/components/sections/projects/ProjectDetail.astro";
+import { projects } from "@/data/projects";
+import { team } from "@/data/team";
+
+const contributors = (slug: string) =>
+  team.filter((member) => (member.projects as string[]).includes(slug)).length;
 ---
 
-<Layout title="Projects" description="Explore Youth Notion’s projects in environmental response, civic awareness, and youth technology." bodyClass="projects-page" footerTheme="projects">
-  <main class="projects-page-main">
-    <PageHero
-      variant="projects"
-      eyebrow="IDEAS INTO ACTION"
-      title="Building practical change, together."
-      description="Explore initiatives using technology, civic engagement, and community action to expand what young people can do."
-      actionLabel="Explore projects"
-      actionHref="#current-projects"
-      secondaryLabel="Why Youth Notion"
-      secondaryHref="/about"
-    />
-    <ProjectsShowcase />
-  </main>
-</Layout>
+<BaseLayout
+  title="Projects"
+  description="Explore Youth Notion’s projects in environmental response, civic awareness, and youth technology."
+>
+  <PageHero
+    eyebrow="Ideas into action"
+    title="Building practical change,"
+    accent="together."
+    description="Explore initiatives using technology, civic engagement, and community action to expand what young people can do."
+    primary={{ label: "Explore projects", href: "#current-projects" }}
+    secondary={{ label: "Why Youth Notion", href: "/about" }}
+  >
+    <BlueprintArt slot="art" />
+  </PageHero>
+
+  <section class="section" id="current-projects" aria-labelledby="current-title">
+    <div class="container">
+      <div class="section-head section-head--split" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Current projects</p>
+          <h2 id="current-title" class="title">Ideas that move people toward better futures.</h2>
+        </div>
+        <p class="lede">
+          Each initiative blends community insight, digital systems, and action-driven thinking to help young
+          people lead change locally and beyond.
+        </p>
+      </div>
+
+      <ul class="showcase" role="list" data-reveal-stagger>
+        {
+          projects.map((project) => (
+            <li>
+              <ProjectDetail project={project} members={contributors(project.slug)} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-head--split .section-head {
+    margin: 0;
+  }
+
+  .showcase {
+    display: grid;
+    gap: 1rem;
+  }
+</style>

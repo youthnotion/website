@@ -1,0 +1,99 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Portrait from "@/components/ui/Portrait.astro";
+import { team } from "@/data/team";
+
+const faces = team.filter((member) => member.photo).slice(0, 7);
+---
+
+<section class="section teaser" aria-labelledby="teaser-title">
+  <div class="container">
+    <div class="teaser__panel chamfer" data-reveal>
+      <div class="teaser__faces" aria-hidden="true">
+        {faces.map((member) => <Portrait member={member} size={84} class="teaser__face" />)}
+        <span class="teaser__more octagon">+{team.length - faces.length}</span>
+      </div>
+
+      <div class="teaser__copy">
+        <p class="eyebrow">Our people</p>
+        <h2 id="teaser-title" class="title">
+          {team.length} people. <span class="accent">One shared purpose.</span>
+        </h2>
+        <p class="lede">
+          Different skills, from engineering to campaigns to research, turning ideas into meaningful work for
+          young people.
+        </p>
+        <Button href="/team">Meet the team</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .teaser {
+    padding-top: 0;
+  }
+
+  .teaser__panel {
+    --cut: 32px;
+    --chamfer-fill: linear-gradient(120deg, var(--surface), var(--ink-2) 70%);
+    display: grid;
+    /* minmax(0, …) stops the photos' natural width stretching the panel past the screen. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    overflow: hidden;
+  }
+
+  @media (min-width: 960px) {
+    .teaser__panel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+    }
+  }
+
+  /* Always four columns, so the stagger moves whole columns and faces can't land on each other.
+     The bottom padding reserves room for the shift: half a cell, or 12.5% of the width. */
+  .teaser__faces {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 340px;
+    padding-bottom: 12.5%;
+  }
+
+  .teaser__panel .teaser__faces > :global(*) {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    aspect-ratio: 1;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .teaser__panel .teaser__faces > :global(*:nth-child(even)) {
+    transform: translateY(50%);
+  }
+
+  @media (hover: hover) {
+    .teaser__panel:hover .teaser__faces > :global(*:nth-child(even)) {
+      transform: none;
+    }
+  }
+
+  .teaser__more {
+    display: grid;
+    place-items: center;
+    background: var(--lime);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1rem, 4vw, 1.35rem);
+  }
+
+  .teaser__copy {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+</style>

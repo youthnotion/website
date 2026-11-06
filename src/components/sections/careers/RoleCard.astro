@@ -1,0 +1,139 @@
+---
+// One job posting, always fully visible so it can be read, screenshotted and crawled.
+import Button from "@/components/ui/Button.astro";
+import { applyLink, internshipTerms, type Role } from "@/data/careers";
+
+interface Props {
+  role: Role;
+  /** "h1" on the role's own page, where the title also stops being a link. */
+  heading?: "h1" | "h3";
+}
+
+const { role, heading: Heading = "h3" } = Astro.props;
+const facts = [role.duration, role.location, ...internshipTerms, role.pay].filter(Boolean);
+---
+
+<article class="role chamfer" id={role.slug}>
+  <header class="role__head">
+    <Heading class="role__title">
+      {Heading === "h3" ? <a href={`/careers/${role.slug}`}>{role.title}</a> : role.title}
+    </Heading>
+    <div class="role__apply">
+      <Button href={applyLink(role)} external icon="whatsapp" flipCorners>
+        Apply<span class="sr-only"> for {role.title} on WhatsApp</span>
+      </Button>
+    </div>
+    <ul class="role__facts" role="list">{facts.map((fact) => <li>{fact}</li>)}</ul>
+  </header>
+
+  <p class="role__summary">{role.summary}</p>
+
+  <div class="role__lists">
+    {
+      role.responsibilities?.length ? (
+        <div class="role__list">
+          <h4>Responsibilities</h4>
+          <ul role="list">{role.responsibilities.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      ) : null
+    }
+
+    <div class="role__list">
+      <h4>Requirements</h4>
+      <ul role="list">{role.requirements.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </div>
+</article>
+
+<style>
+  .role {
+    --cut: 20px;
+    --chamfer-line: rgb(168 220 92 / 0.38);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    padding: 1.1rem clamp(1.25rem, 2.6vw, 2rem) clamp(1.25rem, 2.6vw, 2rem);
+    scroll-margin-top: 96px;
+  }
+
+  .role__head {
+    display: grid;
+    gap: 0.4rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .role__title {
+    /* Keeps long titles clear of the Apply button in the corner. */
+    padding-right: 6.75rem;
+    color: var(--lime);
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  .role__title a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .role__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .role__facts li {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--line-strong);
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .role__summary {
+    color: var(--muted);
+  }
+
+  /* Side by side when there's room, stacked on phones. A single list takes the full width. */
+  .role__lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 1.25rem 2.5rem;
+  }
+
+  h4 {
+    margin-bottom: 0.6rem;
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .role__list ul {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .role__list li {
+    padding-left: 0.8rem;
+    border-left: 2px solid var(--lime);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Flush in the corner, with the same cut as the card so the two edges line up. */
+  .role__apply {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .role__apply :global(.button) {
+    --cut: 20px;
+  }
+
+</style>

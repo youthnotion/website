@@ -1,0 +1,162 @@
+---
+// The hero's centrepiece: the logo's octagon, echoed as nested rotating
+// frames, with the three projects orbiting it.
+import { Image } from "astro:assets";
+import ProjectMark from "./ProjectMark.astro";
+import mark from "@/assets/brand/mark.png";
+import { projects } from "@/data/projects";
+import { octagonPoints as octagon } from "@/lib/geometry";
+
+const ticks = Array.from({ length: 48 }, (_, i) => i * 7.5);
+---
+
+<div class="emblem" aria-hidden="true">
+  <svg class="emblem__frames" viewBox="0 0 500 500">
+    <defs>
+      <linearGradient id="emblem-stroke" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--lime)" />
+        <stop offset="1" stop-color="var(--teal)" />
+      </linearGradient>
+    </defs>
+    <g class="ring ring--ticks">
+      {ticks.map((deg, i) => <line x1="250" y1="6" x2="250" y2={i % 6 === 0 ? 22 : 14} transform={`rotate(${deg} 250 250)`} />)}
+    </g>
+    <polygon class="ring ring--outer" points={octagon(214)} />
+    <polygon class="ring ring--dashed" points={octagon(184)} />
+    <polygon class="ring ring--glow" points={octagon(150)} />
+    <polygon class="ring ring--inner" points={octagon(150)} />
+  </svg>
+
+  <div class="emblem__core">
+    <Image src={mark} alt="" width={176} height={176} densities={[1, 2]} loading="eager" />
+  </div>
+
+  <ul class="emblem__orbit" role="list">
+    {
+      projects.map((project, index) => (
+        <li style={{ "--angle": `${index * 120 - 90}deg`, "--accent": project.accent }}>
+          <span class="emblem__satellite">
+            <ProjectMark project={project} size={76} />
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .emblem {
+    position: relative;
+    container-type: inline-size;
+    width: min(100%, 520px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+
+  .emblem__frames {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .ring {
+    fill: none;
+    transform-origin: 250px 250px;
+  }
+
+  .ring--ticks {
+    stroke: var(--line-strong);
+    stroke-width: 1;
+    animation: spin 120s linear infinite;
+  }
+
+  .ring--outer {
+    stroke: var(--line-strong);
+    animation: spin 90s linear infinite reverse;
+  }
+
+  .ring--dashed {
+    stroke: var(--teal);
+    stroke-opacity: 0.45;
+    stroke-dasharray: 2 10;
+    stroke-linecap: round;
+    stroke-width: 2;
+    animation: spin 60s linear infinite;
+  }
+
+  .ring--inner {
+    stroke: url(#emblem-stroke);
+    stroke-width: 1.5;
+  }
+
+  .ring--glow {
+    stroke: var(--lime);
+    stroke-width: 10;
+    stroke-opacity: 0.12;
+    filter: blur(10px);
+    animation: breathe 6s ease-in-out infinite;
+  }
+
+  .emblem__core {
+    position: absolute;
+    inset: 33%;
+    display: grid;
+    place-items: center;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .emblem__core :global(img) {
+    width: 100%;
+    filter: drop-shadow(0 24px 50px rgb(79 179 196 / 0.35));
+  }
+
+  /* Satellites ride an invisible ring; each logo counter-rotates to stay upright. */
+  .emblem__orbit {
+    position: absolute;
+    inset: 0;
+    animation: spin 48s linear infinite;
+  }
+
+  .emblem__orbit li {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: rotate(var(--angle)) translateX(37cqi) rotate(calc(-1 * var(--angle)));
+  }
+
+  .emblem__satellite {
+    position: absolute;
+    translate: -50% -50%;
+    /* A soft dark halo lifts the logo off the rings it passes over. */
+    filter: drop-shadow(0 0 6px var(--ink));
+    animation: spin 48s linear infinite reverse;
+  }
+
+  @container (max-width: 340px) {
+    .emblem__satellite {
+      scale: 0.8;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  @keyframes breathe {
+    50% {
+      stroke-opacity: 0.3;
+    }
+  }
+
+  @keyframes float {
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+</style>

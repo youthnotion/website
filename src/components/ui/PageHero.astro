@@ -1,0 +1,128 @@
+---
+import Button from "./Button.astro";
+import type { IconName } from "./Icon.astro";
+
+interface Action {
+  label: string;
+  href: string;
+  icon?: IconName;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** Second line of the title, shown in the accent colour. */
+  accent?: string;
+  description: string;
+  primary?: Action;
+  secondary?: Action;
+}
+
+const { eyebrow, title, accent, description, primary, secondary } = Astro.props;
+---
+
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="page-hero__backdrop" aria-hidden="true">
+    <div class="grid-bg"></div>
+  </div>
+
+  <div class="container page-hero__inner">
+    <div class="page-hero__copy">
+      <p class="eyebrow intro" style="--d: 0">{eyebrow}</p>
+      <h1 id="page-title" class="display">
+        <span class="intro-line"><span style="--d: 1">{title}</span></span>
+        {accent && <span class="intro-line"><span style="--d: 2" class="accent">{accent}</span></span>}
+      </h1>
+      <p class="lede intro" style="--d: 3">{description}</p>
+      {
+        (primary || secondary) && (
+          <div class="page-hero__actions intro" style="--d: 4">
+            {primary && <Button href={primary.href} icon={primary.icon ?? "arrow-down"}>{primary.label}</Button>}
+            {secondary && <Button href={secondary.href} variant="ghost" icon={secondary.icon}>{secondary.label}</Button>}
+          </div>
+        )
+      }
+      <slot />
+    </div>
+
+    {
+      Astro.slots.has("art") && (
+        <div class="page-hero__art intro" style="--d: 2" aria-hidden="true">
+          <slot name="art" />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(130px, 14vw, 170px) clamp(60px, 7vw, 90px);
+    border-bottom: 1px solid var(--line);
+    background: radial-gradient(50% 70% at 85% 30%, rgb(36 100 118 / 0.38), transparent 70%);
+  }
+
+  .page-hero__backdrop,
+  .page-hero__backdrop .grid-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .page-hero__inner {
+    position: relative;
+  }
+
+  .page-hero__copy {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Each page supplies its own piece. On phones it drifts behind the copy instead of pushing it down. */
+  .page-hero__art {
+    position: absolute;
+    top: 50%;
+    right: -24%;
+    width: min(92vw, 460px);
+    aspect-ratio: 1;
+    translate: 0 -50%;
+    opacity: 0.2;
+    pointer-events: none;
+    mask-image: radial-gradient(closest-side, #000 60%, transparent);
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .page-hero__art {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: min(100%, 480px);
+      margin-inline: auto;
+      translate: none;
+      opacity: 1;
+      pointer-events: auto;
+      mask-image: none;
+    }
+  }
+
+  .page-hero h1 {
+    margin-block: 1.25rem 1.5rem;
+    font-size: clamp(2.6rem, 5.2vw, 4.25rem);
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+</style>

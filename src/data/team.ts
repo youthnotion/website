@@ -1,20 +1,76 @@
-import type { TeamType } from "@/types/team";
+import type { ImageMetadata } from "astro";
 
-export const teamData: TeamType[] = [
-  { id: 1, name: "Abid Hasan", designation: "Web Engineering Lead", image: "/images/team/abid.png", sunagorik: true, terra: true },
-  { id: 2, name: "Ashfaqur Rahman Chowdhury", designation: "Director of Operations", image: "/images/team/ashfaq.png", sunagorik: true, terra: true },
-  { id: 16, name: "Fatin Khan", designation: "Junior Systems Engineer", image: "/images/team/fatin.png", sunagorik: true },
-  { id: 3, name: "Iftekharul Islam", designation: "Business Development Lead", image: "/images/team/Iftekharul Islam.png", sunagorik: true, terra: true },
-  { id: 4, name: "Imranul Karim", designation: "Operations Associate", image: "/images/team/imran.png", sunagorik: true },
-  { id: 5, name: "Khaled Saifulla", designation: "Digital Graphic Designer", image: "/images/team/Evan.png", sunagorik: true },
-  { id: 6, name: "Mahadi Sajjad Neloy", designation: "Director of Engineering", portraitHidden: true, terra: true },
-  { id: 7, name: "Meheraj Patwari", designation: "Regional Coordinator", image: "/images/team/Meheraj Patwari.png", sunagorik: true },
-  { id: 8, name: "Muaz Labib", designation: "Regional Coordinator", image: "/images/team/Muaz Labib.png", sunagorik: true },
-  { id: 9, name: "Mumtahin Sifat", designation: "PR Lead · Project Sunagorik", image: "/images/team/sifat.png", sunagorik: true },
-  { id: 10, name: "Rafia Safa", designation: "HR Lead · Project Sunagorik", image: "/images/team/safa.png", sunagorik: true },
-  { id: 11, name: "Rakan Mahmud", designation: "Junior Web Engineer", image: "/images/team/rakan.png", sunagorik: true },
-  { id: 12, name: "Sahidul Islam Rahat", designation: "Regional Coordinator", image: "/images/team/Sahidul Islam Rahat.png", sunagorik: true },
-  { id: 13, name: "Samsun Naher Maisha", designation: "Director of Research", image: "/images/team/Samsun Naher.png", terra: true },
-  { id: 14, name: "Sultana Rajia", designation: "Campaign Lead · Project Sunagorik", image: "/images/team/trisha.png", sunagorik: true },
-  { id: 15, name: "Sumit Das", designation: "Accountant", image: "/images/team/Sumit Das.png", sunagorik: true },
+import abid from "@/assets/team/abid-hasan.png";
+import ashfaq from "@/assets/team/ashfaqur-rahman-chowdhury.png";
+import fatin from "@/assets/team/fatin-khan.png";
+import iftekharul from "@/assets/team/iftekharul-islam.png";
+import imranul from "@/assets/team/imranul-karim.png";
+import khaled from "@/assets/team/khaled-saifulla.png";
+import meheraj from "@/assets/team/meheraj-patwari.png";
+import muaz from "@/assets/team/muaz-labib.png";
+import mumtahin from "@/assets/team/mumtahin-sifat.png";
+import rafia from "@/assets/team/rafia-safa.png";
+import rakan from "@/assets/team/rakan-mahmud.png";
+import sahidul from "@/assets/team/sahidul-islam-rahat.png";
+import samsun from "@/assets/team/samsun-naher-maisha.png";
+import sultana from "@/assets/team/sultana-rajia.png";
+import sumit from "@/assets/team/sumit-das.png";
+
+/** Project slugs from `projects.ts` that a member contributes to. */
+export type ProjectTag = "sunagorik" | "terra";
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  photo?: ImageMetadata;
+  /** Overrides the initials derived from `name` when there is no photo. */
+  initials?: string;
+  projects: ProjectTag[];
+};
+
+// Listed alphabetically; directors are pulled to the front by the team page.
+export const team: TeamMember[] = [
+  { name: "Abid Hasan", role: "Web Engineering Lead", photo: abid, projects: ["sunagorik", "terra"] },
+  {
+    name: "Ashfaqur Rahman Chowdhury",
+    role: "Director of Operations",
+    photo: ashfaq,
+    projects: ["sunagorik", "terra"],
+  },
+  { name: "Fatin Khan", role: "Junior Systems Engineer", photo: fatin, projects: ["sunagorik"] },
+  {
+    name: "Iftekharul Islam",
+    role: "Business Development Lead",
+    photo: iftekharul,
+    projects: ["sunagorik", "terra"],
+  },
+  { name: "Imranul Karim", role: "Operations Associate", photo: imranul, projects: ["sunagorik"] },
+  { name: "Khaled Saifulla", role: "Digital Graphic Designer", photo: khaled, projects: ["sunagorik"] },
+  { name: "Mahadi Sajjad Neloy", role: "Director of Engineering", projects: ["terra"] },
+  { name: "Meheraj Patwari", role: "Regional Coordinator", photo: meheraj, projects: ["sunagorik"] },
+  { name: "Muaz Labib", role: "Regional Coordinator", photo: muaz, projects: ["sunagorik"] },
+  { name: "Mumtahin Sifat", role: "PR Lead · Project Sunagorik", photo: mumtahin, projects: ["sunagorik"] },
+  { name: "Rafia Safa", role: "HR Lead · Project Sunagorik", photo: rafia, projects: ["sunagorik"] },
+  { name: "Rakan Mahmud", role: "Junior Web Engineer", photo: rakan, projects: ["sunagorik"] },
+  { name: "Sahidul Islam Rahat", role: "Regional Coordinator", photo: sahidul, projects: ["sunagorik"] },
+  { name: "Samsun Naher Maisha", role: "Director of Research", photo: samsun, projects: ["terra"] },
+  {
+    name: "Sultana Rajia",
+    role: "Campaign Lead · Project Sunagorik",
+    photo: sultana,
+    projects: ["sunagorik"],
+  },
+  { name: "Sumit Das", role: "Accountant", photo: sumit, projects: ["sunagorik"] },
 ];
+
+export const isDirector = (member: TeamMember) => member.role.startsWith("Director");
+
+export const initialsOf = (member: TeamMember) =>
+  member.initials ??
+  member.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();

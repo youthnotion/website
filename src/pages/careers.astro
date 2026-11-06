@@ -1,10 +1,192 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Careers from "../components/Careers.astro";
-
-const description = "Explore future internship and associate opportunities with Youth Notion, a youth-led organization in Noakhali, Bangladesh.";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import StairsArt from "@/components/ui/hero-art/StairsArt.astro";
+import Icon from "@/components/ui/Icon.astro";
+import RoleCard from "@/components/sections/careers/RoleCard.astro";
+import { roles, tracks } from "@/data/careers";
 ---
 
-<Layout title="Careers at Youth Notion" description={description}>
-  <main><Careers /></main>
-</Layout>
+<BaseLayout
+  title="Internships and Careers at Youth Notion"
+  description="Three-month internships in web engineering and systems engineering at Youth Notion, with a path to a junior role. Apply on WhatsApp."
+>
+  <PageHero
+    eyebrow="Careers at Youth Notion"
+    title="Bring your ideas."
+    accent="Build what matters."
+    description="We’re creating a place for curious, committed people to learn, contribute, and make a difference alongside young people in Bangladesh."
+    primary={{ label: "Explore opportunities", href: "#open-roles" }}
+    secondary={{ label: "Get to know us", href: "/about", icon: "arrow-up-right" }}
+  >
+    <ul class="tracks intro" style="--d: 5" role="list">
+      {
+        tracks.map((track, index) => (
+          <li>
+            <span>0{index + 1}</span>
+            <p>
+              {track.name}
+              <small>{track.text}</small>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+    <StairsArt slot="art" labels={[tracks[0].name, tracks[1].name]} />
+  </PageHero>
+
+  <section class="section" id="open-roles" aria-labelledby="roles-title">
+    <div class="container">
+      <div class="section-head section-head--split" data-reveal>
+        <div class="section-head">
+          <p class="eyebrow">Find your place</p>
+          <h2 id="roles-title" class="title">Open opportunities</h2>
+        </div>
+        <p class="lede">
+          {
+            roles.length
+              ? "Three-month internships with hours adjusted around your studies or job. Interns who perform well will be considered for a junior role."
+              : "We’ll share internship and junior openings here as roles are finalized."
+          }
+        </p>
+      </div>
+
+      {
+        roles.length ? (
+          <ul class="roles" role="list" data-reveal-stagger>
+            {roles.map((role) => (
+              <li>
+                <RoleCard role={role} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="empty chamfer" data-reveal>
+            <span class="empty__icon octagon">
+              <Icon name="plus" size={28} />
+            </span>
+            <div>
+              <p class="empty__status">The next chapter starts here</p>
+              <h3>No openings posted just yet</h3>
+              <p>
+                We’re shaping the opportunities we’ll offer. Check back soon for details on roles,
+                responsibilities, and how to apply.
+              </p>
+            </div>
+            <span class="empty__mark" aria-hidden="true">
+              YN<span>.</span>
+            </span>
+          </div>
+        )
+      }
+      <p class="note">Only current, confirmed opportunities will appear on this page.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tracks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .tracks li {
+    display: flex;
+    gap: 0.9rem;
+  }
+
+  .tracks span {
+    color: var(--lime);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding-top: 0.2rem;
+  }
+
+  .tracks p {
+    display: grid;
+    font-weight: 600;
+  }
+
+  .tracks small {
+    color: var(--faint);
+    font-weight: 400;
+    font-size: 0.85rem;
+  }
+
+  .section-head--split .section-head {
+    margin: 0;
+  }
+
+  .roles {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .empty {
+    --cut: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    min-height: 260px;
+    padding: clamp(1.75rem, 5vw, 3rem);
+    overflow: hidden;
+  }
+
+  .empty > div {
+    flex: 1 1 320px;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .empty__icon {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    background: rgb(168 220 92 / 0.1);
+    color: var(--lime);
+  }
+
+  .empty__status {
+    color: var(--lime);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .empty h3 {
+    font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+  }
+
+  .empty p:last-child {
+    color: var(--muted);
+    max-width: 56ch;
+  }
+
+  .empty__mark {
+    position: absolute;
+    right: 1.5rem;
+    bottom: -0.3em;
+    z-index: -1;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(7rem, 16vw, 12rem);
+    letter-spacing: -0.08em;
+    line-height: 1;
+    color: rgb(176 226 214 / 0.04);
+  }
+
+  .empty__mark span {
+    color: rgb(240 181 77 / 0.2);
+  }
+
+  .note {
+    margin-top: 1rem;
+    color: var(--faint);
+    font-size: 0.85rem;
+  }
+</style>

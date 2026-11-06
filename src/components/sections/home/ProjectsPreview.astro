@@ -1,0 +1,62 @@
+---
+import Button from "@/components/ui/Button.astro";
+import ProjectCard from "@/components/ui/ProjectCard.astro";
+import { projects } from "@/data/projects";
+---
+
+<section class="section" aria-labelledby="projects-title">
+  <div class="container">
+    <div class="section-head section-head--split" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">Current projects</p>
+        <h2 id="projects-title" class="title">Ideas that move people toward better futures.</h2>
+      </div>
+      <p class="lede">
+        Each initiative blends community insight, digital systems, and action-driven thinking to help young
+        people lead change locally and beyond.
+      </p>
+    </div>
+
+    <ul class="projects" role="list" data-reveal-stagger>
+      {
+        projects.map((project, index) => (
+          <li>
+            <ProjectCard project={project} index={index} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="projects__more" data-reveal>
+      <Button href="/projects" variant="ghost">See all projects</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-head--split .section-head {
+    margin: 0;
+  }
+
+  .projects {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .projects {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .projects li,
+  .projects li > :global(a) {
+    height: 100%;
+  }
+
+  .projects__more {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+</style>

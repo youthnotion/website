@@ -1,8 +1,87 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import NotFound from "../components/NotFound";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/ui/Button.astro";
 ---
 
-<Layout title="Page not found" noindex>
-  <main><NotFound /></main>
-</Layout>
+<BaseLayout title="Page not found" noindex>
+  <section class="lost" aria-labelledby="lost-title">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container lost__inner">
+      <p class="lost__code intro" aria-hidden="true">4<span class="octagon"></span>4</p>
+      <p class="eyebrow intro" style="--d: 1">Error 404</p>
+      <h1 id="lost-title" class="title intro" style="--d: 2">
+        We can’t seem to find the page you’re looking for.
+      </h1>
+      <p class="lede intro" style="--d: 3">
+        Oops! The page you are looking for does not exist. It might have been moved or deleted.
+      </p>
+      <div class="lost__actions intro" style="--d: 4">
+        <Button href="/">Go to home</Button>
+        <Button href="/projects" variant="ghost">Explore projects</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+    padding-block: 140px 80px;
+    text-align: center;
+  }
+
+  .lost .grid-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .lost__inner {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+  }
+
+  .lost__code {
+    display: flex;
+    align-items: center;
+    gap: 0.06em;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(7rem, 24vw, 15rem);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+
+  /* The zero is the logo's octagon, slowly turning. */
+  .lost__code span {
+    width: 0.72em;
+    height: 0.72em;
+    border: 0;
+    background: conic-gradient(from 0deg, var(--teal), var(--lime), var(--teal));
+    -webkit-mask: radial-gradient(circle, transparent 40%, #000 41%);
+    mask: radial-gradient(circle, transparent 40%, #000 41%);
+    animation: turn 12s linear infinite;
+  }
+
+  .lost h1 {
+    max-width: 22ch;
+  }
+
+  .lost__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  @keyframes turn {
+    to {
+      rotate: 360deg;
+    }
+  }
+</style>

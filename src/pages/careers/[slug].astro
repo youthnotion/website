@@ -1,0 +1,61 @@
+---
+// One page per job. Google's job search reads the structured data here, and
+// the URL is easy to share on its own.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icon from "@/components/ui/Icon.astro";
+import RoleCard from "@/components/sections/careers/RoleCard.astro";
+import { roles, jobPosting, type Role } from "@/data/careers";
+
+export function getStaticPaths() {
+  return roles.map((role) => ({ params: { slug: role.slug }, props: { role } }));
+}
+
+const { role } = Astro.props as { role: Role };
+---
+
+<BaseLayout
+  title={`${role.title} (${role.location}, ${role.duration})`}
+  description={`${role.title} at Youth Notion: ${role.location.toLowerCase()} internship, ${role.duration}, with a path to a junior role. Apply on WhatsApp.`}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jobPosting(role))} />
+
+  <section class="posting">
+    <div class="container posting__inner">
+      <a class="posting__back" href="/careers#open-roles">
+        <span class="posting__arrow"><Icon name="arrow-right" size={16} /></span>
+        All openings
+      </a>
+      <RoleCard role={role} heading="h1" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .posting {
+    padding-block: clamp(110px, 12vw, 150px) clamp(2.5rem, 4vw, 3.5rem);
+  }
+
+  .posting__inner {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .posting__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: start;
+    min-height: 44px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .posting__back:hover {
+    color: var(--lime);
+  }
+
+  .posting__arrow {
+    display: inline-flex;
+    rotate: 180deg;
+  }
+</style>

@@ -1,21 +1,23 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Team from "../components/Team";
-import PageHero from "../components/PageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import ConstellationArt from "@/components/ui/hero-art/ConstellationArt.astro";
+import Roster from "@/components/sections/team/Roster.astro";
 ---
 
-<Layout title="Our Team" description="Meet the directors, project leads, coordinators, and engineers working with Youth Notion.">
-  <main>
-    <PageHero
-      variant="team"
-      eyebrow="PEOPLE OF YOUTH NOTION"
-      title="The people moving ideas into action."
-      description="Meet the directors, coordinators, and makers turning ideas into meaningful work for young people."
-      actionLabel="Meet our people"
-      actionHref="#team"
-      secondaryLabel="Explore our projects"
-      secondaryHref="/projects"
-    />
-    <Team client:visible />
-  </main>
-</Layout>
+<BaseLayout
+  title="Our Team"
+  description="Meet the directors, project leads, coordinators, and engineers working with Youth Notion."
+>
+  <PageHero
+    eyebrow="People of Youth Notion"
+    title="The people moving"
+    accent="ideas into action."
+    description="Meet the directors, coordinators, and makers turning ideas into meaningful work for young people."
+    primary={{ label: "Meet our people", href: "#people" }}
+    secondary={{ label: "Explore our projects", href: "/projects" }}
+  >
+    <ConstellationArt slot="art" />
+  </PageHero>
+  <Roster />
+</BaseLayout>

@@ -1,0 +1,157 @@
+---
+import Icon from "@/components/ui/Icon.astro";
+import { objectives } from "@/data/content";
+---
+
+<section class="section objectives" aria-labelledby="objectives-title">
+  <div class="container objectives__layout">
+    <div class="objectives__intro" data-reveal>
+      <p class="eyebrow">Objectives</p>
+      <h2 id="objectives-title" class="title">A clear path from potential to impact.</h2>
+      <p class="lede">
+        We turn youth potential into lasting progress through four connected priorities: opportunity, agency,
+        capability, and community.
+      </p>
+    </div>
+
+    <ol class="objectives__grid" role="list" data-reveal-stagger>
+      {
+        objectives.map((objective, index) => (
+          <li class="objective chamfer" data-spotlight>
+            <div class="objective__top">
+              <span class="objective__icon">
+                <Icon name={objective.icon} size={26} />
+              </span>
+              <span class="objective__index">0{index + 1}</span>
+            </div>
+            <h3>{objective.title}</h3>
+            <p>{objective.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  // Cards light up under the pointer.
+  document.querySelectorAll<HTMLElement>("[data-spotlight]").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--x", `${event.clientX - rect.left}px`);
+      card.style.setProperty("--y", `${event.clientY - rect.top}px`);
+    });
+  });
+</script>
+
+<style>
+  .objectives__layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 960px) {
+    .objectives__layout {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .objectives__intro {
+      position: sticky;
+      top: 140px;
+    }
+  }
+
+  .objectives__intro {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .objectives__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .objectives__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .objective {
+    --cut: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 0;
+    padding: 1.4rem;
+    transition: background-color 0.3s;
+  }
+
+  .objective::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      260px circle at var(--x, 50%) var(--y, 0%),
+      rgb(168 220 92 / 0.12),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .objective:hover {
+    --chamfer-line: rgb(168 220 92 / 0.45);
+  }
+
+  .objective:hover::after {
+    opacity: 1;
+  }
+
+  .objective__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: auto;
+  }
+
+  .objective__icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    color: var(--lime);
+    background: rgb(168 220 92 / 0.08);
+    clip-path: polygon(29% 0, 71% 0, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0 71%, 0 29%);
+  }
+
+  .objective__index {
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .objective h3 {
+    margin-top: 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 639px) {
+    .objective {
+      min-height: 0;
+      padding: 1.4rem;
+    }
+
+    .objective h3 {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .objective p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+</style>

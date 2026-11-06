@@ -1,0 +1,145 @@
+---
+import Icon from "@/components/ui/Icon.astro";
+import { faqs } from "@/data/content";
+---
+
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+  <div class="container faq__layout">
+    <div class="faq__intro" data-reveal>
+      <p class="eyebrow">At a glance</p>
+      <h2 id="faq-title" class="title">Any questions? Answered.</h2>
+      <p class="lede">
+        Find everything you need to know about Youth Notion through our frequently asked questions.
+      </p>
+    </div>
+
+    <div class="faq__list" data-reveal-stagger>
+      {
+        faqs.map((faq, index) => (
+          <details class="faq__item" name="faq" open={index === 0}>
+            <summary>
+              <span class="faq__index">0{index + 1}</span>
+              <span class="faq__question">{faq.question}</span>
+              <span class="faq__toggle">
+                <Icon name="plus" size={20} />
+              </span>
+            </summary>
+            <div class="faq__answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    border-top: 1px solid var(--line);
+    background: var(--ink-2);
+  }
+
+  .faq__layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 960px) {
+    .faq__layout {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .faq__intro {
+      position: sticky;
+      top: 140px;
+    }
+  }
+
+  .faq__intro {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--line);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding-block: 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__index {
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .faq__question {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    transition: color 0.2s;
+  }
+
+  summary:hover .faq__question,
+  .faq__item[open] .faq__question {
+    color: var(--lime);
+  }
+
+  .faq__toggle {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line-strong);
+    transition:
+      transform 0.35s var(--ease-out),
+      background-color 0.25s,
+      color 0.25s;
+  }
+
+  .faq__item[open] .faq__toggle {
+    transform: rotate(45deg);
+    background: var(--lime);
+    border-color: var(--lime);
+    color: var(--ink);
+  }
+
+  .faq__answer {
+    padding: 0 3.5rem 1.1rem 2.6rem;
+    color: var(--muted);
+    animation: open 0.4s var(--ease-out);
+  }
+
+  @media (max-width: 600px) {
+    .faq__answer {
+      padding-inline: 0;
+    }
+  }
+
+  @keyframes open {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+</style>

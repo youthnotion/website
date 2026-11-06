@@ -1,0 +1,52 @@
+---
+// A team member's photo cropped to the octagon, or their initials when there is no photo.
+import { Image } from "astro:assets";
+import { initialsOf, type TeamMember } from "@/data/team";
+
+interface Props {
+  member: TeamMember;
+  size: number;
+  class?: string;
+}
+
+const { member, size, class: className } = Astro.props;
+---
+
+<span class:list={["portrait octagon", className]} style={{ "--size": `${size}px` }}>
+  {
+    member.photo ? (
+      <Image src={member.photo} alt={member.name} width={size} height={size} densities={[1, 2]} format="webp" />
+    ) : (
+      <span class="portrait__initials" role="img" aria-label={member.name}>
+        {initialsOf(member)}
+      </span>
+    )
+  }
+</span>
+
+<style>
+  .portrait {
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    height: var(--size);
+    flex-shrink: 0;
+    background: linear-gradient(145deg, var(--surface-2), var(--teal-deep));
+  }
+
+  /* Source photos are circles with a dashed ring; zoom past the ring so the octagon is filled. */
+  .portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.16;
+  }
+
+  .portrait__initials {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: calc(var(--size) * 0.3);
+    letter-spacing: -0.03em;
+    color: var(--lime);
+  }
+</style>
