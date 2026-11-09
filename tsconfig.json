@@ -5,5 +5,5 @@
     "paths": { "@/*": ["src/*"] }
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "build", ".wrangler", "node_modules"]
+  "exclude": ["dist", "build", ".vercel", "node_modules"]
 }
