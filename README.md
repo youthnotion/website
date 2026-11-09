@@ -11,33 +11,11 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Astro (usually `http://localhost:4321`). To preview the Cloudflare Worker build locally, run:
+Open the local URL printed by Astro (usually `http://localhost:4321`). `npm run build` produces the production build, and `npm run check` type-checks the project.
 
-```sh
-npm run build
-npx wrangler dev
-```
+## Deployment
 
-## Cloudflare Workers Builds
-
-Use the repository's `main` branch and configure:
-
-- Build command: `npm run build`
-- Deploy command: `npx wrangler deploy`
-- Build output directory: leave unset; Wrangler reads the Worker and assets paths from `wrangler.jsonc`.
-
-The Astro Cloudflare adapter writes the server entry point to `dist/_worker.js/index.js` and static assets to `dist/`. No database binding is required. The current site does not use sessions or persistence; D1 can be added when a future feature needs it.
-
-For a local one-step build and deploy, use `npm run deploy`.
-
-## Netlify and Vercel
-
-The Astro config selects the matching server adapter from the host's build environment (`NETLIFY` or `VERCEL`). Cloudflare remains the default for local development and Cloudflare Workers Builds.
-
-- **Netlify:** use `npm run build` as the build command and `dist` as the publish directory. The Netlify build environment selects `@astrojs/netlify` and deploys SSR routes as Netlify Functions.
-- **Vercel:** import the repository and let Vercel detect Astro. The Vercel build environment selects `@astrojs/vercel` and deploys SSR routes to Vercel Functions.
-
-Each provider builds its own adapter output from the same source; do not upload a Cloudflare Worker build artifact to Netlify or Vercel.
+The site is hosted on Vercel, which builds and deploys every push to `main` automatically; pull requests get preview deployments. Vercel detects Astro, so no build settings are needed. All pages are prerendered, and `/api/health.json` runs as a serverless function.
 
 ## Site structure
 
